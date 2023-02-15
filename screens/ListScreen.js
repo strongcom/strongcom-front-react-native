@@ -1,9 +1,9 @@
-import {Text} from 'react-native';
+import TaskList from '../components/listScreen/TaskList';
 
 export default function ListScreen({}) {
   return (
     <>
-      <Text>List Screen</Text>
+      <TaskList />
     </>
   );
 }
