@@ -6,6 +6,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
+import {SafeAreaView} from 'react-native';
 
 export default function BottomBar() {
   const Tab = createMaterialBottomTabNavigator();

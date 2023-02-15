@@ -1,10 +1,30 @@
 import React from 'react';
 import AppBar from './components/AppBar';
+//redux 관련
+import rootReducer from './modules';
+import {Provider} from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit';
+import logger from 'redux-logger';
+import {jsonApi} from './api/jsonApi';
+//style 관련
+import {ThemeProvider} from 'styled-components';
+import theme from './resources/style/theme';
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(jsonApi.middleware, logger),
+  devTools: process.env.NODE_ENV !== 'production',
+});
 
 function App() {
   return (
     <>
-      <AppBar />
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <AppBar />
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }

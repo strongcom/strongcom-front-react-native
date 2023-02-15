@@ -1,10 +1,9 @@
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   getFocusedRouteNameFromRoute,
   NavigationContainer,
 } from '@react-navigation/native';
 import BottomBar from './BottomBar';
-import {View, Text} from 'react-native';
 
 export default function AppBar({}) {
   const Stack = createNativeStackNavigator();
