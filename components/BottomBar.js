@@ -21,7 +21,7 @@ export default function BottomBar() {
             title: '홈',
             tabBarLabel: 'Home',
             tabBarIcon: ({color}) => (
-              <Icon name="bluetooth" color={color} size={24} />
+              <Icon name="home" color={color} size={24} />
             ),
           }}
         />
@@ -32,7 +32,7 @@ export default function BottomBar() {
             title: '리스트',
             tabBarLabel: 'List',
             tabBarIcon: ({color}) => (
-              <Icon name="wifi" color={color} size={24} />
+              <Icon name="list" color={color} size={24} />
             ),
           }}
         />
@@ -43,7 +43,7 @@ export default function BottomBar() {
             title: '설정',
             tabBarLabel: 'Setting',
             tabBarIcon: ({color}) => (
-              <Icon name="show-chart" color={color} size={24} />
+              <Icon name="settings" color={color} size={24} />
             ),
           }}
         />
