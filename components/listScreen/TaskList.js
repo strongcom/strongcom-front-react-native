@@ -24,7 +24,9 @@ export default function TaskList() {
     <>
       <FlatList
         data={data}
-        renderItem={({item}) => <ListItem title={item.title} />}
+        renderItem={({item}) => (
+          <ListItem title={item.title} secondaryText={item.subtitle} />
+        )}
         keyExtractor={item => item._id}
       />
     </>
