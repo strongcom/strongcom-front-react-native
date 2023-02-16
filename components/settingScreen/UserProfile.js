@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 16,
+    marginTop: 24,
   },
   userName: {
     fontSize: 24,
-    margin: 12,
+    marginTop: 12,
   },
   avatar: {
     width: 100,

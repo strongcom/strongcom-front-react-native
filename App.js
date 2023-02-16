@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import AppBar from './components/AppBar';
 //redux 관련
 import rootReducer from './modules';
@@ -9,6 +9,10 @@ import {jsonApi} from './api/jsonApi';
 //style 관련
 import {ThemeProvider} from 'styled-components';
 import theme from './resources/style/theme';
+import {LogBox} from 'react-native';
+import {ko, registerTranslation} from 'react-native-paper-dates';
+
+registerTranslation('ko', ko);
 
 const store = configureStore({
   reducer: rootReducer,
@@ -18,6 +22,9 @@ const store = configureStore({
 });
 
 function App() {
+  useEffect(() => {
+    LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+  }, []);
   return (
     <>
       <Provider store={store}>

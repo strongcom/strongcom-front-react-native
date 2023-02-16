@@ -4,6 +4,8 @@ import {
   NavigationContainer,
 } from '@react-navigation/native';
 import BottomBar from './BottomBar';
+import AddScreen from '../screens/AddScreen';
+import RepetitionScreen from '../screens/RepetitionScreen';
 
 export default function AppBar({}) {
   const Stack = createNativeStackNavigator();
@@ -35,6 +37,8 @@ export default function AppBar({}) {
               title: getHeaderTitle(route),
             })}
           />
+          <Stack.Screen name="Add" component={AddScreen} />
+          <Stack.Screen name="Repetition" component={RepetitionScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
