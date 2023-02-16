@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 16,
     paddingVertical: 8,
+    marginBottom: 16,
   },
   dateButtonContainer: {
     display: 'flex',
