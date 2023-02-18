@@ -31,6 +31,12 @@ export default function LoginScreen() {
           onPress={() => console.log('Login Button Click')}>
           로그인
         </Button>
+        <Button
+          style={styles.button}
+          mode="outlined"
+          onPress={() => console.log('Login Button Click')}>
+          회원가입
+        </Button>
       </View>
     </>
   );
