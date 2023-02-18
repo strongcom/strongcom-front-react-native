@@ -5,7 +5,7 @@ import rootReducer from './modules';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import {jsonApi} from './api/jsonApi';
+import {RTXquery} from './api/RTXquery';
 //style 관련
 import {ThemeProvider} from 'styled-components';
 import theme from './resources/style/theme';
@@ -17,7 +17,7 @@ registerTranslation('ko', ko);
 const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(jsonApi.middleware, logger),
+    getDefaultMiddleware().concat(RTXquery.middleware, logger),
   devTools: process.env.NODE_ENV !== 'production',
 });
 

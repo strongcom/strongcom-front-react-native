@@ -1,11 +1,13 @@
 import {reminderSlice} from './reminderSlice';
-import {jsonApi} from '../api/jsonApi';
+import {RTXquery} from '../api/RTXquery';
 import {inputStateSlice} from './inputStateSlice';
+import {userSlice} from './userSlice';
 
 const rootReducer = {
   reminder: reminderSlice.reducer,
   inputState: inputStateSlice.reducer,
-  [jsonApi.reducerPath]: jsonApi.reducer,
+  user: userSlice.reducer,
+  [RTXquery.reducerPath]: RTXquery.reducer,
 };
 
 export default rootReducer;

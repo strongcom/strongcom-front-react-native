@@ -7,6 +7,7 @@ import BottomBar from './BottomBar';
 import AddScreen from '../screens/AddScreen';
 import RepetitionScreen from '../screens/RepetitionScreen';
 import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 
 export default function AppBar({}) {
   const Stack = createNativeStackNavigator();
@@ -40,6 +41,7 @@ export default function AppBar({}) {
             })}
           />
           <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Add" component={AddScreen} />
           <Stack.Screen name="Repetition" component={RepetitionScreen} />
         </Stack.Navigator>

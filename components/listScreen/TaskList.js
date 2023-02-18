@@ -1,10 +1,10 @@
 import {ListItem} from '@react-native-material/core';
 import {FlatList, Text} from 'react-native';
-import {useGetReminderQuery} from '../../api/jsonApi';
+import {useGetReminderListQuery} from '../../api/RTXquery';
 import {StyleSheet} from 'react-native';
 
 export default function TaskList() {
-  const {data, error, isLoading} = useGetReminderQuery('today');
+  const {data, error, isLoading} = useGetReminderListQuery();
 
   if (isLoading) {
     return (

@@ -2,8 +2,9 @@ import {TextInput, Button} from 'react-native-paper';
 import {useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
   const [text, setText] = useState('');
+  const [passwordHide, setPasswordHide] = useState(true);
 
   return (
     <>
@@ -24,6 +25,13 @@ export default function LoginScreen() {
           mode="outlined"
           value={text}
           onChangeText={text => setText(text)}
+          secureTextEntry={passwordHide}
+          right={
+            <TextInput.Icon
+              icon="eye"
+              onPress={() => setPasswordHide(!passwordHide)}
+            />
+          }
         />
         <Button
           style={styles.button}
@@ -34,7 +42,7 @@ export default function LoginScreen() {
         <Button
           style={styles.button}
           mode="outlined"
-          onPress={() => console.log('Login Button Click')}>
+          onPress={() => navigation.navigate('Register')}>
           회원가입
         </Button>
       </View>
@@ -44,6 +52,7 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -55,7 +64,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 24,
-    marginTop: 200,
     marginBottom: 16,
   },
   textInput: {
