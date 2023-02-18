@@ -31,21 +31,9 @@ export const reminderSlice = createSlice({
     },
     startTimeInput: (state, action) => {
       state.startTime = action.payload;
-      // let payloadTime = dayjs(action.payload);
-      // state.startDate = dayjs(state.startDate)
-      //   .set('hour', payloadTime.get('hour'))
-      //   .set('minute', payloadTime.get('minute'))
-      //   .set('second', payloadTime.get('second'))
-      //   .format();
     },
     endTimeInput: (state, action) => {
       state.endTime = action.payload;
-      // let payloadTime = dayjs(action.payload);
-      // state.endDate = dayjs(state.endDate)
-      //   .set('hour', payloadTime.get('hour'))
-      //   .set('minute', payloadTime.get('minute'))
-      //   .set('second', payloadTime.get('second'))
-      //   .format();
     },
     RepetitionPeriodInput: (state, action) => {
       state.RepetitionPeriod = action.payload;
