@@ -6,6 +6,7 @@ import {
 import BottomBar from './BottomBar';
 import AddScreen from '../screens/AddScreen';
 import RepetitionScreen from '../screens/RepetitionScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 export default function AppBar({}) {
   const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ export default function AppBar({}) {
     <>
       <NavigationContainer>
         <Stack.Navigator
+          initialRouteName="Login"
           screenOptions={{
             headerStyle: {
               backgroundColor: 'white',
@@ -37,6 +39,7 @@ export default function AppBar({}) {
               title: getHeaderTitle(route),
             })}
           />
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Add" component={AddScreen} />
           <Stack.Screen name="Repetition" component={RepetitionScreen} />
         </Stack.Navigator>
