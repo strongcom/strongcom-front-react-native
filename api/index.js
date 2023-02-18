@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
-const baseUrl = process.env.REACT_APP_API_URL
+const baseUrl = 'http://192.168.0.24:8080';
 
 export default axios.create({
-    baseURL: baseUrl,
-    timeout: 5000,
+  baseURL: baseUrl,
+  timeout: 5000,
 });

@@ -27,7 +27,7 @@ export default function TaskList() {
         style={styles.list}
         data={data}
         renderItem={({item}) => (
-          <ListItem title={item.title} secondaryText={item.subtitle} />
+          <ListItem title={item.title} secondaryText={item.subTitle} />
         )}
         keyExtractor={item => item._id}
       />

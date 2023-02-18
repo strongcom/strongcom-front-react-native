@@ -7,11 +7,11 @@ import {StyleSheet} from 'react-native';
 export default function ReminderTitleInput() {
   const reminder = useSelector(state => state.reminder);
   const dispatch = useDispatch();
-  const handleTitleArea = e => {
-    dispatch(titleInput(e.target.value));
+  const handleTitleArea = text => {
+    dispatch(titleInput(text));
   };
-  const handleContentArea = e => {
-    dispatch(contentInput(e.target.value));
+  const handleContentArea = text => {
+    dispatch(contentInput(text));
   };
   return (
     <>
@@ -22,7 +22,7 @@ export default function ReminderTitleInput() {
           variant="standard"
           rows={1}
           value={reminder.title}
-          onChange={handleTitleArea}
+          onChangeText={text => handleTitleArea(text)}
         />
         <TextInput
           style={styles.title}
@@ -30,7 +30,7 @@ export default function ReminderTitleInput() {
           variant="standard"
           rows={1}
           value={reminder.content}
-          onChange={handleContentArea}
+          onChangeText={text => handleContentArea(text)}
         />
       </Box>
     </>

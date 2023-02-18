@@ -7,12 +7,20 @@ import {Switch} from 'native-base';
 import {DatePickerModal} from 'react-native-paper-dates';
 import {endDateInput, startDateInput} from '../../modules/reminderSlice';
 import dayjs from 'dayjs';
+import {Divider} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/native';
 
 export default function ReminderDateInput() {
   const reminder = useSelector(state => state.reminder);
   const dateToggle = useSelector(state => state.inputState.dateToggle);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const handleRepetitionClick = () => {
+    navigation.navigate('Repetition');
+  };
   const handleDateToggle = () => {
     dispatch(dateToggleInput(!dateToggle));
   };
@@ -24,8 +32,8 @@ export default function ReminderDateInput() {
   const onConfirm = useCallback(
     ({startDate, endDate}) => {
       setOpen(false);
-      dispatch(startDateInput(dayjs(startDate).format()));
-      dispatch(endDateInput(dayjs(endDate).format()));
+      dispatch(startDateInput(dayjs(startDate).format('YYYY-MM-DD')));
+      dispatch(endDateInput(dayjs(endDate).format('YYYY-MM-DD')));
     },
     [dateToggle],
   );
@@ -42,13 +50,13 @@ export default function ReminderDateInput() {
             <View style={styles.dateButtonContainer}>
               <Button
                 variant={'outlined'}
-                title={reminder.startDate.split('T')[0]}
+                title={reminder.startDate}
                 onPress={() => setOpen(true)}
               />
               <Text> ~ </Text>
               <Button
                 variant={'outlined'}
-                title={reminder.endDate.split('T')[0]}
+                title={reminder.endDate}
                 onPress={() => setOpen(true)}
               />
             </View>
@@ -63,6 +71,16 @@ export default function ReminderDateInput() {
             />
           </View>
         )}
+        <Divider />
+        <View style={styles.buttonContainer}>
+          <Button
+            title="반복 안함"
+            leading={() => <Icon name="repeat" size={24} />}
+            variant="outlined"
+            color="black"
+            onPress={handleRepetitionClick}
+          />
+        </View>
       </View>
     </>
   );
@@ -83,5 +101,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 16,
     marginVertical: 8,
+  },
+  buttonContainer: {
+    marginHorizontal: 8,
+    marginTop: 8,
   },
 });

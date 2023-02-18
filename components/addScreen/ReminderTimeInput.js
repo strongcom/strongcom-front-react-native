@@ -31,7 +31,7 @@ export default function ReminderTimeInput() {
       setStartTimeOpen(false);
       dispatch(
         startTimeInput(
-          dayjs().set('hour', hours).set('minute', minutes).format(),
+          dayjs().set('hour', hours).set('minute', minutes).format('HH:mm:ss'),
         ),
       );
     },
@@ -43,7 +43,7 @@ export default function ReminderTimeInput() {
       setEndTimeOpen(false);
       dispatch(
         endTimeInput(
-          dayjs().set('hour', hours).set('minute', minutes).format(),
+          dayjs().set('hour', hours).set('minute', minutes).format('HH:mm:ss'),
         ),
       );
     },
@@ -62,13 +62,13 @@ export default function ReminderTimeInput() {
             <View style={styles.dateButtonContainer}>
               <Button
                 variant={'outlined'}
-                title={reminder.startDate.split('T')[1].split('+')[0]}
+                title={reminder.startTime}
                 onPress={() => setStartTimeOpen(true)}
               />
               <Text> ~ </Text>
               <Button
                 variant={'outlined'}
-                title={reminder.endDate.split('T')[1].split('+')[0]}
+                title={reminder.endTime}
                 onPress={() => setEndTimeOpen(true)}
               />
             </View>
@@ -78,8 +78,8 @@ export default function ReminderTimeInput() {
               visible={startTimeOpen}
               onDismiss={onStartTimeDismiss}
               onConfirm={onStartTimeConfirm}
-              hours={reminder.startDate.split('T')[1].slice(0, 2)}
-              minutes={reminder.startDate.split('T')[1].slice(3, 5)}
+              hours={reminder.startTime.slice(0, 2)}
+              minutes={reminder.startTime.slice(3, 5)}
             />
             <TimePickerModal
               locale="ko"
@@ -87,8 +87,8 @@ export default function ReminderTimeInput() {
               visible={endTimeOpen}
               onDismiss={onEndTimeDismiss}
               onConfirm={onEndTimeConfirm}
-              hours={reminder.endDate.split('T')[1].slice(0, 2)}
-              minutes={reminder.endDate.split('T')[1].slice(3, 5)}
+              hours={reminder.endDate.slice(0, 2)}
+              minutes={reminder.endDate.slice(3, 5)}
             />
           </View>
         )}

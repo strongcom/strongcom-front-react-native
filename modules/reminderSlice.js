@@ -5,8 +5,10 @@ import * as reminderApi from '../api/reminder';
 const initialState = {
   title: '',
   content: '',
-  startDate: dayjs().format(),
-  endDate: dayjs().format(),
+  startDate: dayjs().format('YYYY-MM-DD'),
+  endDate: dayjs().format('YYYY-MM-DD'),
+  startTime: dayjs().format('HH:mm:ss'),
+  endTime: dayjs().format('HH:mm:ss'),
   RepetitionPeriod: '',
   RepetitionDay: '',
 };
@@ -28,20 +30,22 @@ export const reminderSlice = createSlice({
       state.endDate = action.payload;
     },
     startTimeInput: (state, action) => {
-      let payloadTime = dayjs(action.payload);
-      state.startDate = dayjs(state.startDate)
-        .set('hour', payloadTime.get('hour'))
-        .set('minute', payloadTime.get('minute'))
-        .set('second', payloadTime.get('second'))
-        .format();
+      state.startTime = action.payload;
+      // let payloadTime = dayjs(action.payload);
+      // state.startDate = dayjs(state.startDate)
+      //   .set('hour', payloadTime.get('hour'))
+      //   .set('minute', payloadTime.get('minute'))
+      //   .set('second', payloadTime.get('second'))
+      //   .format();
     },
     endTimeInput: (state, action) => {
-      let payloadTime = dayjs(action.payload);
-      state.endDate = dayjs(state.endDate)
-        .set('hour', payloadTime.get('hour'))
-        .set('minute', payloadTime.get('minute'))
-        .set('second', payloadTime.get('second'))
-        .format();
+      state.endTime = action.payload;
+      // let payloadTime = dayjs(action.payload);
+      // state.endDate = dayjs(state.endDate)
+      //   .set('hour', payloadTime.get('hour'))
+      //   .set('minute', payloadTime.get('minute'))
+      //   .set('second', payloadTime.get('second'))
+      //   .format();
     },
     RepetitionPeriodInput: (state, action) => {
       state.RepetitionPeriod = action.payload;

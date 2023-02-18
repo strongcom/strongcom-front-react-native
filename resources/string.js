@@ -1,10 +1,3 @@
-export const pageList = [
-  {bottomId: 0, text: '홈', pathname: '/home'},
-  {bottomId: 1, text: '리스트', pathname: '/list'},
-  {bottomId: 3, text: '설정', pathname: '/setting'},
-  {bottomId: 0, text: '홈', pathname: '/'},
-];
-
 export const settingList = [
   {
     key: 0,
@@ -23,7 +16,7 @@ export const settingList = [
 
 export const repetitionList = [
   {key: 0, text: '반복 안함', value: ''},
-  {key: 1, text: '매일', value: 'd'},
+  {key: 1, text: '매일', value: 'DAILY'},
   {
     key: 2,
     text: '매주',
@@ -38,6 +31,6 @@ export const repetitionList = [
       {key: '2-7', text: '토', value: 'Sat'},
     ],
   },
-  {key: 3, text: '매월', value: 'm'},
-  {key: 4, text: '매년', value: 'y'},
+  {key: 3, text: '매월', value: 'MONTHLY'},
+  {key: 4, text: '매년', value: 'YEARLY'},
 ];
