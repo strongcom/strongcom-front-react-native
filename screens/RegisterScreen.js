@@ -2,6 +2,9 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 import {useState} from 'react';
 import {useRegisterUserMutation} from '../api/RTXquery';
+import Toast from 'react-native-toast-message';
+import {useDispatch} from 'react-redux';
+import {registerUser} from '../modules/userSlice';
 
 export default function RegisterScreen({navigation}) {
   const [id, setId] = useState('');
@@ -10,12 +13,29 @@ export default function RegisterScreen({navigation}) {
   const [name, setName] = useState('');
   const [passwordHide, setPasswordHide] = useState(true);
   const [register, {isLoading}] = useRegisterUserMutation();
+  const dispatch = useDispatch();
+
+  const showToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: '회원가입에 실패했습니다.',
+      topOffset: 70,
+    });
+  };
 
   const handleRegistration = async () => {
-    await register({
-      username: id,
-      password: password,
-    });
+    if (password === checkPassword) {
+      const {data, error} = await register({
+        userId: id,
+        password: password,
+      });
+      dispatch(registerUser({data, error}));
+      if (error) {
+        showToast();
+      } else {
+        navigation.navigate('Main');
+      }
+    }
   };
 
   return (

@@ -3,13 +3,13 @@ import {
   getFocusedRouteNameFromRoute,
   NavigationContainer,
 } from '@react-navigation/native';
-import BottomBar from './BottomBar';
-import AddScreen from '../screens/AddScreen';
-import RepetitionScreen from '../screens/RepetitionScreen';
-import LoginScreen from '../screens/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen';
+import BottomBar from '../components/BottomBar';
+import AddScreen from './AddScreen';
+import RepetitionScreen from './RepetitionScreen';
+import LoginScreen from './LoginScreen';
+import RegisterScreen from './RegisterScreen';
 
-export default function AppBar({}) {
+export default function ManageNavigation({}) {
   const Stack = createNativeStackNavigator();
 
   function getHeaderTitle(route) {

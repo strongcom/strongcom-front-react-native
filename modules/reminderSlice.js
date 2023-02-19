@@ -9,8 +9,8 @@ const initialState = {
   endDate: dayjs().format('YYYY-MM-DD'),
   startTime: dayjs().format('HH:mm:ss'),
   endTime: dayjs().format('HH:mm:ss'),
-  RepetitionPeriod: '',
-  RepetitionDay: '',
+  repetitionPeriod: '',
+  repetitionDay: '',
 };
 
 export const reminderSlice = createSlice({

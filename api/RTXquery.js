@@ -23,15 +23,14 @@ export const RTXquery = createApi({
       },
     }),
     registerUser: builder.mutation({
-      query: body => {
-        console.log(JSON.stringify(body));
+      query: ({...body}) => {
         return {
-          url: 'register',
+          url: 'auth/register',
           method: 'POST',
           headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(body),
+          body: body,
         };
       },
     }),
