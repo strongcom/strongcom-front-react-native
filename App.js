@@ -7,9 +7,11 @@ import {configureStore} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import {RTXquery} from './api/RTXquery';
 //style 관련
+import {Provider as PaperProvider} from 'react-native-paper';
 import {LogBox} from 'react-native';
 import {ko, registerTranslation} from 'react-native-paper-dates';
 import Toast from 'react-native-toast-message';
+import theme from './resources/style/theme';
 
 registerTranslation('ko', ko);
 
@@ -27,8 +29,10 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        <ManageNavigation />
-        <Toast />
+        <PaperProvider theme={theme}>
+          <ManageNavigation />
+          <Toast />
+        </PaperProvider>
       </Provider>
     </>
   );

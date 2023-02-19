@@ -28,10 +28,10 @@ export default function ManageNavigation({}) {
     <>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={'Login'}
+          initialRouteName={'Main'}
           screenOptions={{
             headerStyle: {
-              backgroundColor: 'white',
+              backgroundColor: '#D8D6B4',
             },
           }}>
           <Stack.Screen

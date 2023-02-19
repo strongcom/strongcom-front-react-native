@@ -23,6 +23,7 @@ export default function ListScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFFCF3',
   },
   fabStyle: {
     bottom: 16,
