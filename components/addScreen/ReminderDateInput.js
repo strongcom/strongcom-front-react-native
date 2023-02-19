@@ -88,7 +88,7 @@ export default function ReminderDateInput() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff7ff',
+    backgroundColor: '#F4F1E4',
     borderRadius: 10,
     marginHorizontal: 16,
     paddingVertical: 8,

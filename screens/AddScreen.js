@@ -23,7 +23,7 @@ export default function AddScreen({navigation}) {
           <ReminderDateInput />
           <ReminderTimeInput />
         </View>
-        <Button title="저장" onPress={handleSubmit} />
+        <Button title="저장" onPress={handleSubmit} color={'#D8D6B4'} />
       </View>
     </>
   );
@@ -33,5 +33,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
+    backgroundColor: '#FFFCF3',
   },
 });

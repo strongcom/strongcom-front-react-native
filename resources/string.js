@@ -3,7 +3,6 @@ export const settingList = [
     key: 0,
     menuName: '계정 관리',
     subMenu: [
-      {key: 10, menuName: '비밀번호 관리'},
       {key: 11, menuName: '로그아웃'},
       {key: 12, menuName: '회원 탈퇴'},
     ],
