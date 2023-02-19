@@ -1,10 +1,38 @@
 import {TextInput, Button} from 'react-native-paper';
 import {useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import Toast from 'react-native-toast-message';
+import {registerUser, setUserInfo} from '../modules/userSlice';
+import {useLoginMutation, userLoginMutation} from '../api/RTXquery';
+import {useDispatch} from 'react-redux';
 
 export default function LoginScreen({navigation}) {
-  const [text, setText] = useState('');
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordHide, setPasswordHide] = useState(true);
+  const [login] = useLoginMutation();
+  const dispatch = useDispatch();
+
+  const showToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: '로그인 실패',
+      topOffset: 70,
+    });
+  };
+
+  const handleLogin = async () => {
+    const {data, error} = await login({
+      userId: id,
+      password: password,
+    });
+    dispatch(setUserInfo({data, error}));
+    if (error) {
+      showToast();
+    } else {
+      navigation.navigate('Main');
+    }
+  };
 
   return (
     <>
@@ -16,15 +44,15 @@ export default function LoginScreen({navigation}) {
           style={styles.textInput}
           label="ID"
           mode="outlined"
-          value={text}
-          onChangeText={text => setText(text)}
+          value={id}
+          onChangeText={text => setId(text)}
         />
         <TextInput
           style={styles.textInput}
           label="Password"
           mode="outlined"
-          value={text}
-          onChangeText={text => setText(text)}
+          value={password}
+          onChangeText={text => setPassword(text)}
           secureTextEntry={passwordHide}
           right={
             <TextInput.Icon
@@ -36,7 +64,7 @@ export default function LoginScreen({navigation}) {
         <Button
           style={styles.button}
           mode="contained"
-          onPress={() => console.log('Login Button Click')}>
+          onPress={() => handleLogin()}>
           로그인
         </Button>
         <Button

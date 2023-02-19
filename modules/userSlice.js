@@ -9,7 +9,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    registerUser: (state, action) => {
+    setUserInfo: (state, action) => {
       if (action.payload.error) {
         state.logined = false;
         return;
@@ -20,4 +20,4 @@ export const userSlice = createSlice({
   },
 });
 
-export const {registerUser} = userSlice.actions;
+export const {setUserInfo} = userSlice.actions;

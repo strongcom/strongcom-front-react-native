@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {useRegisterUserMutation} from '../api/RTXquery';
 import Toast from 'react-native-toast-message';
 import {useDispatch} from 'react-redux';
-import {registerUser} from '../modules/userSlice';
+import {setUserInfo} from '../modules/userSlice';
 
 export default function RegisterScreen({navigation}) {
   const [id, setId] = useState('');
@@ -29,7 +29,7 @@ export default function RegisterScreen({navigation}) {
         userId: id,
         password: password,
       });
-      dispatch(registerUser({data, error}));
+      dispatch(setUserInfo({data, error}));
       if (error) {
         showToast();
       } else {

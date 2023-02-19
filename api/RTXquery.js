@@ -34,6 +34,18 @@ export const RTXquery = createApi({
         };
       },
     }),
+    login: builder.mutation({
+      query: ({...body}) => {
+        return {
+          url: 'auth/login',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: body,
+        };
+      },
+    }),
   }),
 });
 
@@ -41,4 +53,5 @@ export const {
   useGetReminderListQuery,
   usePostReminderMutation,
   useRegisterUserMutation,
+  useLoginMutation,
 } = RTXquery;
