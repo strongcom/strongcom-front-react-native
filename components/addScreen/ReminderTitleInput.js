@@ -13,24 +13,22 @@ export default function ReminderTitleInput() {
     dispatch(contentInput(text));
   };
   return (
-    <>
-      <Box style={styles.container}>
-        <TextInput
-          style={styles.title}
-          placeholder="제목"
-          value={reminder.title}
-          maxLength={30}
-          onChangeText={text => handleTitleArea(text)}
-        />
-        <TextInput
-          style={styles.title}
-          placeholder="내용"
-          maxLength={100}
-          value={reminder.content}
-          onChangeText={text => handleContentArea(text)}
-        />
-      </Box>
-    </>
+    <Box style={styles.container}>
+      <TextInput
+        style={styles.title}
+        placeholder="제목"
+        value={reminder.title}
+        maxLength={30}
+        onChangeText={text => handleTitleArea(text)}
+      />
+      <TextInput
+        style={styles.title}
+        placeholder="내용"
+        maxLength={100}
+        value={reminder.content}
+        onChangeText={text => handleContentArea(text)}
+      />
+    </Box>
   );
 }
 

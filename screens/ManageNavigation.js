@@ -9,6 +9,7 @@ import RepetitionScreen from './RepetitionScreen';
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
 import {useSelector} from 'react-redux';
+import theme from '../resources/style/theme';
 
 export default function ManageNavigation({}) {
   const Stack = createNativeStackNavigator();
@@ -31,7 +32,7 @@ export default function ManageNavigation({}) {
           initialRouteName={'Main'}
           screenOptions={{
             headerStyle: {
-              backgroundColor: '#D8D6B4',
+              backgroundColor: theme.colors.elevation.level3,
             },
           }}>
           <Stack.Screen
@@ -49,7 +50,7 @@ export default function ManageNavigation({}) {
             component={AddScreen}
             options={{
               headerStyle: {
-                backgroundColor: '#D8D6B4',
+                backgroundColor: theme.colors.elevation.level3,
               },
             }}
           />
