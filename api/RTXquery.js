@@ -1,17 +1,14 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 // const baseUrl = process.env.REACT_APP_API_URL;
-// const baseUrl = 'http://127.0.0.1:4000/api/';
-const baseUrl = 'http://10.0.2.2:4000/api/';
-
-const createRequest = url => ({url});
+const baseUrl = 'http://10.0.2.2:8080/api/';
 
 export const RTXquery = createApi({
   reducerPath: 'RTXquery',
   baseQuery: fetchBaseQuery({baseUrl}),
   endpoints: builder => ({
     getReminderList: builder.query({
-      query: filter => createRequest(`reminder`),
+      query: filter => ({url: `reminder/${filter}`}),
     }),
     postReminder: builder.mutation({
       query: ({body}) => {

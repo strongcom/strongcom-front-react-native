@@ -1,10 +1,11 @@
-import {ListItem} from '@react-native-material/core';
 import {FlatList, Text} from 'react-native';
 import {useGetReminderListQuery} from '../../api/RTXquery';
 import {StyleSheet} from 'react-native';
+import {Divider, List} from 'react-native-paper';
+import theme from '../../resources/style/theme';
 
 export default function TaskList() {
-  const {data, error, isLoading} = useGetReminderListQuery();
+  const {data, error, isLoading} = useGetReminderListQuery('');
 
   if (isLoading) {
     return (
@@ -26,8 +27,15 @@ export default function TaskList() {
       <FlatList
         style={styles.list}
         data={data}
+        ItemSeparatorComponent={() => <Divider />}
         renderItem={({item}) => (
-          <ListItem title={item.title} secondaryText={item.subTitle} />
+          <List.Item
+            title={item?.title}
+            description={item?.subtitle}
+            left={() => (
+              <List.Icon color={theme.colors.primary} icon={'reminder'} />
+            )}
+          />
         )}
         keyExtractor={item => item._id}
       />
