@@ -23,9 +23,6 @@ const store = configureStore({
 });
 
 function App() {
-  useEffect(() => {
-    LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
-  }, []);
   return (
     <>
       <Provider store={store}>

@@ -8,7 +8,7 @@ const theme = {
   colors: {
     primary: 'rgb(0, 110, 0)',
     onPrimary: 'rgb(255, 255, 255)',
-    primaryContainer: 'rgb(141, 251, 119)',
+    primaryContainer: 'rgb(171,236,158)',
     onPrimaryContainer: 'rgb(0, 34, 0)',
     secondary: 'rgb(84, 99, 77)',
     onSecondary: 'rgb(255, 255, 255)',

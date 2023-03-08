@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {contentInput, titleInput} from '../../modules/reminderSlice';
-import {Box} from '@react-native-material/core';
 import {StyleSheet, TextInput} from 'react-native';
+import {Surface} from 'react-native-paper';
 
 export default function ReminderTitleInput() {
   const reminder = useSelector(state => state.reminder);
@@ -13,7 +13,7 @@ export default function ReminderTitleInput() {
     dispatch(contentInput(text));
   };
   return (
-    <Box style={styles.container}>
+    <Surface style={styles.container}>
       <TextInput
         style={styles.title}
         placeholder="제목"
@@ -28,15 +28,14 @@ export default function ReminderTitleInput() {
         value={reminder.content}
         onChangeText={text => handleContentArea(text)}
       />
-    </Box>
+    </Surface>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
-    margin: 16,
-    backgroundColor: '#F4F1E4',
+    marginBottom: 16,
   },
   title: {
     marginVertical: 8,
