@@ -1,6 +1,5 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
-import * as reminderApi from '../api/reminder';
 
 const initialState = {
   title: '',
@@ -10,7 +9,7 @@ const initialState = {
   startTime: dayjs().format('HH:mm:ss'),
   endTime: dayjs().format('HH:mm:ss'),
   repetitionPeriod: '',
-  repetitionDay: '',
+  repetitionDay: [],
 };
 
 export const reminderSlice = createSlice({
@@ -36,34 +35,26 @@ export const reminderSlice = createSlice({
       state.endTime = action.payload;
     },
     RepetitionPeriodInput: (state, action) => {
-      state.RepetitionPeriod = action.payload;
+      state.repetitionPeriod = action.payload;
     },
     RepetitionDayInput: (state, action) => {
-      state.RepetitionDay = state.RepetitionDay + ` ${action.payload}`;
+      if (!state.repetitionDay.includes(action.payload)) {
+        state.repetitionDay = [...state.repetitionDay, action.payload];
+      } else {
+        state.repetitionDay = state.repetitionDay.filter(
+          v => v !== action.payload,
+        );
+      }
     },
     RepetitionCancel: state => {
-      state.RepetitionPeriod = '';
-      state.RepetitionDay = '';
+      state.repetitionPeriod = '';
+      state.repetitionDay = '';
     },
     initReminder: (state, action) => {
       Object.assign(state, initialState);
     },
   },
-  extraReducers: builder => {
-    builder
-      .addCase(postReminderAsync.pending, state => {})
-      .addCase(postReminderAsync.fulfilled, (state, action) => {})
-      .addCase(postReminderAsync.rejected, (state, action) => {});
-  },
 });
-
-export const postReminderAsync = createAsyncThunk(
-  'reminder/postReminderStatus',
-  async (newReminder, thunkAPI) => {
-    const response = await reminderApi.postReminder(newReminder);
-    return response.data;
-  },
-);
 
 export const {
   titleInput,

@@ -3,47 +3,75 @@ import {
   RepetitionDayInput,
   RepetitionPeriodInput,
 } from '../modules/reminderSlice';
-import {RadioButton, Text} from 'react-native-paper';
+import {Divider, RadioButton} from 'react-native-paper';
 import {repetitionList} from '../resources/string';
-import {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
+import DaySelectCheckboxItem from '../components/addScreen/DaySelectCheckboxItem';
+import {useState} from 'react';
 
 export default function RepetitionScreen() {
   const reminder = useSelector(state => state.reminder);
-  const [checkValue, setCheckValue] = useState(reminder.RepetitionPeriod);
   const dispatch = useDispatch();
 
   const handlePeriodClick = period => {
-    setCheckValue(period);
     dispatch(RepetitionPeriodInput(period));
   };
 
-  const handleDayClick = (event, day) => {
+  const handleDayClick = day => {
     dispatch(RepetitionDayInput(day));
   };
+
   return (
-    <>
+    <View style={styles.container}>
       <RadioButton.Group
         onValueChange={newValue => handlePeriodClick(newValue)}
-        value={checkValue}>
+        value={reminder.repetitionPeriod}>
         {repetitionList.map(item => (
-          <View style={styles.container}>
-            <RadioButton
-              value={item.value}
-              status={item.value === checkValue ? 'checked' : 'unchecked'}
-            />
-            <Text>{item.text}</Text>
+          <View>
+            <View style={styles.radioGroupContainer}>
+              <RadioButton.Item
+                key={item.key}
+                value={item.value}
+                label={item.text}
+                status={
+                  item.value === reminder.repetitionPeriod
+                    ? 'checked'
+                    : 'unchecked'
+                }
+              />
+              <View style={styles.checkBoxContainer}>
+                {item.dayList && reminder.repetitionPeriod === 'WEEKLY'
+                  ? item.dayList.map(day => (
+                      <DaySelectCheckboxItem
+                        key={day.key}
+                        label={day.text}
+                        status={reminder.repetitionDay.includes(day.value)}
+                        handlePress={() => handleDayClick(day.value)}
+                      />
+                    ))
+                  : null}
+              </View>
+            </View>
+            <Divider />
           </View>
         ))}
       </RadioButton.Group>
-    </>
+    </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    margin: 16,
+  },
+  radioGroupContainer: {
+    display: 'flex',
     marginVertical: 8,
+  },
+  checkBoxContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 24,
   },
 });

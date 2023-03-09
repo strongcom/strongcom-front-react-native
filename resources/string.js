@@ -18,7 +18,7 @@ export const repetitionList = [
   {
     key: 2,
     text: '매주',
-    value: 'w',
+    value: 'WEEKLY',
     dayList: [
       {key: '2-1', text: '일', value: 'Sun'},
       {key: '2-2', text: '월', value: 'Mon'},
