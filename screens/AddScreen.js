@@ -14,6 +14,7 @@ export default function AddScreen({navigation}) {
   const dispatch = useDispatch();
   const handleSubmit = async () => {
     // dispatch(postReminderAsync(reminder));
+    console.log(reminder);
     const {data, error} = await postReminder({
       ...reminder,
     });

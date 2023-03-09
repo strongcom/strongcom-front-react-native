@@ -11,11 +11,11 @@ export const RTXquery = createApi({
       query: filter => ({url: `reminder/${filter}`}),
     }),
     postReminder: builder.mutation({
-      query: ({body}) => {
+      query: body => {
         return {
           url: 'reminder',
           method: 'POST',
-          body: {body},
+          body: body,
         };
       },
     }),
