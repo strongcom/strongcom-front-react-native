@@ -7,7 +7,7 @@ export default function ListScreen({navigation}) {
   return (
     <>
       <View style={styles.container}>
-        <TaskList />
+        <TaskList filter={''} />
         <AnimatedFAB
           icon={() => <Icon name="add" size={24} />}
           label={'Label'}

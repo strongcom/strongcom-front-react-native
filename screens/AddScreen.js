@@ -13,12 +13,11 @@ export default function AddScreen({navigation}) {
   const [postReminder] = usePostReminderMutation();
   const dispatch = useDispatch();
   const handleSubmit = async () => {
-    // dispatch(postReminderAsync(reminder));
-    console.log(reminder);
+    // console.log(reminder);
     const {data, error} = await postReminder({
       ...reminder,
     });
-    console.log(data, error);
+    // console.log(data, error);
     dispatch(initAddPageToggleState());
     navigation.navigate('List');
   };

@@ -6,9 +6,14 @@ const baseUrl = 'http://10.0.2.2:8080/api/';
 export const RTXquery = createApi({
   reducerPath: 'RTXquery',
   baseQuery: fetchBaseQuery({baseUrl}),
+  tagTypes: ['Reminder'],
   endpoints: builder => ({
     getReminderList: builder.query({
       query: filter => ({url: `reminder/${filter}`}),
+      providesTags: (result, error, arg) => {
+        console.log(result, error);
+        return [{type: 'Reminder'}];
+      },
     }),
     postReminder: builder.mutation({
       query: body => {
@@ -18,6 +23,7 @@ export const RTXquery = createApi({
           body: body,
         };
       },
+      invalidatesTags: (result, error, arg) => [{type: 'Reminder'}],
     }),
     registerUser: builder.mutation({
       query: ({...body}) => {

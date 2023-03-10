@@ -4,8 +4,10 @@ import {StyleSheet} from 'react-native';
 import {Divider, List} from 'react-native-paper';
 import theme from '../../resources/style/theme';
 
-export default function TaskList() {
-  const {data, error, isLoading} = useGetReminderListQuery('');
+export default function TaskList({filter}) {
+  const {data, error, isLoading} = useGetReminderListQuery(filter);
+
+  // const {data, error, isLoading} = useGetReminderListQuery(filter);
 
   if (isLoading) {
     return (
