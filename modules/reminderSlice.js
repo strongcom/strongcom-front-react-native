@@ -46,12 +46,23 @@ export const reminderSlice = createSlice({
         );
       }
     },
-    RepetitionCancel: state => {
+    repetitionCancel: state => {
       state.repetitionPeriod = '';
       state.repetitionDay = '';
     },
     initReminder: (state, action) => {
       Object.assign(state, initialState);
+    },
+    setReminder: (state, action) => {
+      let params = JSON.parse(action.payload);
+      state.title = params.title;
+      state.content = params.content;
+      state.startDate = params.startDate;
+      state.endDate = params.endDate;
+      state.startTime = params.startTime;
+      state.endTime = params.endTime;
+      state.repetitionDay = params.repetitionDay;
+      state.repetitionPeriod = params.repetitionPeriod;
     },
   },
 });
@@ -65,6 +76,7 @@ export const {
   endTimeInput,
   RepetitionPeriodInput,
   RepetitionDayInput,
-  RepetitionCancel,
+  repetitionCancel,
   initReminder,
+  setReminder,
 } = reminderSlice.actions;
