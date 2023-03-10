@@ -28,10 +28,9 @@ export default function RepetitionScreen() {
         onValueChange={newValue => handlePeriodClick(newValue)}
         value={reminder.repetitionPeriod}>
         {repetitionList.map(item => (
-          <View>
+          <View key={item.key}>
             <View style={styles.radioGroupContainer}>
               <RadioButton.Item
-                key={item.key}
                 value={item.value}
                 label={item.text}
                 status={
