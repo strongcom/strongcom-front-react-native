@@ -33,9 +33,13 @@ export default function TaskList({filter}) {
         renderItem={({item}) => (
           <List.Item
             title={item?.title}
-            description={item?.subtitle}
+            description={item?.subTitle}
             left={() => (
-              <List.Icon color={theme.colors.primary} icon={'reminder'} />
+              <List.Icon
+                style={styles.listLeft}
+                color={theme.colors.primary}
+                icon={'reminder'}
+              />
             )}
           />
         )}
@@ -49,5 +53,10 @@ const styles = StyleSheet.create({
   list: {
     marginHorizontal: 16,
     marginTop: 16,
+  },
+  listLeft: {
+    backgroundColor: theme.colors.primaryContainer,
+    padding: 8,
+    borderRadius: 16,
   },
 });

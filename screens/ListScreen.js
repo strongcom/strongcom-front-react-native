@@ -2,6 +2,7 @@ import TaskList from '../components/listScreen/TaskList';
 import {AnimatedFAB} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import theme from '../resources/style/theme';
 
 export default function ListScreen({navigation}) {
   return (
@@ -23,6 +24,7 @@ export default function ListScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.elevation.level0,
   },
   fabStyle: {
     bottom: 16,

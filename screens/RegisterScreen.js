@@ -5,6 +5,7 @@ import {useRegisterUserMutation} from '../api/RTXquery';
 import Toast from 'react-native-toast-message';
 import {useDispatch} from 'react-redux';
 import {setUserInfo} from '../modules/userSlice';
+import theme from '../resources/style/theme';
 
 export default function RegisterScreen({navigation}) {
   const [id, setId] = useState('');
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    backgroundColor: theme.colors.elevation.level0,
   },
   titleText: {
     fontSize: 24,

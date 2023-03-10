@@ -8,6 +8,7 @@ import {repetitionList} from '../resources/string';
 import {View, StyleSheet} from 'react-native';
 import DaySelectCheckboxItem from '../components/addScreen/DaySelectCheckboxItem';
 import {useState} from 'react';
+import theme from '../resources/style/theme';
 
 export default function RepetitionScreen() {
   const reminder = useSelector(state => state.reminder);
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     margin: 16,
+    backgroundColor: theme.colors.elevation.level0,
   },
   radioGroupContainer: {
     display: 'flex',

@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 // import {postReminderAsync} from '../modules/reminderSlice';
 import {initAddPageToggleState} from '../modules/inputStateSlice';
 import {usePostReminderMutation} from '../api/RTXquery';
+import theme from '../resources/style/theme';
 
 export default function AddScreen({navigation}) {
   const reminder = useSelector(state => state.reminder);
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     margin: 16,
+    backgroundColor: theme.colors.elevation.level0,
   },
   rowContainer: {
     display: 'flex',

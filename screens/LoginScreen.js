@@ -5,6 +5,7 @@ import Toast from 'react-native-toast-message';
 import {registerUser, setUserInfo} from '../modules/userSlice';
 import {useLoginMutation, userLoginMutation} from '../api/RTXquery';
 import {useDispatch} from 'react-redux';
+import theme from '../resources/style/theme';
 
 export default function LoginScreen({navigation}) {
   const [id, setId] = useState('');
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    backgroundColor: theme.colors.elevation.level0,
   },
   center: {
     display: 'flex',
