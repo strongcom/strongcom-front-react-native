@@ -1,17 +1,24 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // const baseUrl = process.env.REACT_APP_API_URL;
 const baseUrl = 'http://10.0.2.2:8080/api/';
 
 export const RTXquery = createApi({
   reducerPath: 'RTXquery',
-  baseQuery: fetchBaseQuery({baseUrl}),
+  baseQuery: fetchBaseQuery({
+    baseUrl: baseUrl,
+    prepareHeaders: async headers => {
+      headers.set('Cookie', await AsyncStorage.getItem('access_token'));
+      return headers;
+    },
+  }),
   tagTypes: ['Reminder'],
   endpoints: builder => ({
     getReminderList: builder.query({
       query: filter => ({url: `reminder/${filter}`}),
       providesTags: (result, error, arg) => {
-        console.log(result, error);
+        // console.log(result, error);
         return [{type: 'Reminder'}];
       },
     }),
@@ -30,9 +37,6 @@ export const RTXquery = createApi({
         return {
           url: 'auth/register',
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: body,
         };
       },
@@ -42,10 +46,13 @@ export const RTXquery = createApi({
         return {
           url: 'auth/login',
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: body,
+        };
+      },
+      transformResponse(baseQueryReturnValue, meta, arg) {
+        return {
+          data: baseQueryReturnValue,
+          cookie: meta.response.headers.map['set-cookie'],
         };
       },
     }),

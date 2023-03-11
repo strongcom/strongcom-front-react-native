@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/datetimepicker": "^6.7.5",
     "@react-native-cookies/cookies": "^6.2.1",
     "@react-native-material/core": "^1.3.7",
@@ -33,6 +34,7 @@
     "react-redux": "^8.0.5",
     "redux": "^4.2.0",
     "redux-logger": "^3.0.6",
+    "set-cookie-parser": "^2.5.1",
     "styled-components": "^5.3.6",
     "vector-icons": "^0.1.0"
   },

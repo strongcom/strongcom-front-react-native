@@ -44,7 +44,7 @@ export default function AddScreen({navigation, route}) {
     const {data, error} = await postReminder({
       ...reminder,
     });
-    // console.log(data, error);
+    console.log(data, error);
     dispatch(initAddPageToggleState());
     navigation.navigate('List');
   };

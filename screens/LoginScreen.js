@@ -6,6 +6,7 @@ import {registerUser, setUserInfo} from '../modules/userSlice';
 import {useLoginMutation, userLoginMutation} from '../api/RTXquery';
 import {useDispatch} from 'react-redux';
 import theme from '../resources/style/theme';
+import {setCookieFromResponse} from '../lib/cookieManager';
 
 export default function LoginScreen({navigation}) {
   const [id, setId] = useState('');
@@ -31,6 +32,7 @@ export default function LoginScreen({navigation}) {
     if (error) {
       showToast();
     } else {
+      setCookieFromResponse({cookie: data.cookie});
       navigation.navigate('Main');
     }
   };
@@ -86,6 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: theme.colors.elevation.level0,
+    marginHorizontal: 16,
   },
   center: {
     display: 'flex',
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 24,
-    marginBottom: 16,
+    marginBottom: 8,
   },
   textInput: {
     marginHorizontal: 16,
