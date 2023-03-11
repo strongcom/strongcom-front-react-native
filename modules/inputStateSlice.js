@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const initialState = {
   dateToggle: false,
   timeToggle: false,
+  selectModToggle: false,
 };
 
 export const inputStateSlice = createSlice({
@@ -19,8 +20,15 @@ export const inputStateSlice = createSlice({
       state.dateToggle = false;
       state.timeToggle = false;
     },
+    setSelectModToggle: (state, action) => {
+      state.selectModToggle = action.payload;
+    },
   },
 });
 
-export const {dateToggleInput, timeToggleInput, initAddPageToggleState} =
-  inputStateSlice.actions;
+export const {
+  dateToggleInput,
+  timeToggleInput,
+  initAddPageToggleState,
+  setSelectModToggle,
+} = inputStateSlice.actions;
