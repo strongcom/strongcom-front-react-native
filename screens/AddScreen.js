@@ -48,6 +48,11 @@ export default function AddScreen({navigation, route}) {
     dispatch(initAddPageToggleState());
     navigation.navigate('List');
   };
+
+  const handleCancel = () => {
+    navigation.navigate('List');
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -57,7 +62,11 @@ export default function AddScreen({navigation, route}) {
           <ReminderTimeInput />
         </View>
         <View style={styles.rowContainer}>
-          <Button style={styles.button} mode={'elevated'} icon={'cancel'}>
+          <Button
+            style={styles.button}
+            mode={'elevated'}
+            icon={'cancel'}
+            onPress={handleCancel}>
             취소
           </Button>
           <Button
