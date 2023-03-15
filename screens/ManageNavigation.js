@@ -10,6 +10,7 @@ import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
 import {useSelector} from 'react-redux';
 import theme from '../resources/style/theme';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function ManageNavigation({}) {
   const Stack = createNativeStackNavigator();
@@ -29,7 +30,9 @@ export default function ManageNavigation({}) {
     <>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={'Main'}
+          initialRouteName={
+            AsyncStorage.getItem('access_token') ? 'Main' : 'Login'
+          }
           screenOptions={{
             headerStyle: {
               backgroundColor: theme.colors.elevation.level3,

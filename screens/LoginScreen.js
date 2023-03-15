@@ -76,6 +76,12 @@ export default function LoginScreen({navigation}) {
           onPress={() => navigation.navigate('Register')}>
           회원가입
         </Button>
+        {/*<Button*/}
+        {/*  style={styles.button}*/}
+        {/*  mode="outlined"*/}
+        {/*  onPress={() => navigation.navigate('Main')}>*/}
+        {/*  쿠키 테스트*/}
+        {/*</Button>*/}
       </View>
     </>
   );
