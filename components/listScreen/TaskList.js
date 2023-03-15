@@ -8,7 +8,7 @@ import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setSelectModToggle} from '../../modules/inputStateSlice';
 
-export default function TaskList({filter}) {
+export default function TaskList({title = '전체 리마인더', filter}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {data, error, isLoading} = useGetReminderListQuery(filter);
@@ -52,7 +52,7 @@ export default function TaskList({filter}) {
   return (
     <>
       <View style={styles.titleContainer}>
-        <Text>전체 리마인더</Text>
+        <Text>{title}</Text>
         {selectAllToggle ? (
           <View style={styles.chipContainer}>
             <Chip mode="flat" icon="cancel" onPress={handleCheckModCancel}>
