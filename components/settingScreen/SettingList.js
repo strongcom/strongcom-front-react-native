@@ -5,10 +5,16 @@ import {Divider} from 'react-native-paper';
 import {List} from 'react-native-paper';
 import theme from '../../resources/style/theme';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function SettingList() {
   const navigation = useNavigation();
   //todo: 로그인 화면으로 넘어갔을 때 앱바 뒤로가기 비활성화하기
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('access_token').then(() => {
+      navigation.navigate('Login');
+    });
+  };
   return (
     <>
       <FlatList
@@ -16,10 +22,7 @@ export default function SettingList() {
         style={styles.listWrapper}
         data={settingList}
         renderItem={({item}) => (
-          <List.Item
-            title={item.menuName}
-            onPress={() => navigation.navigate('Login')}
-          />
+          <List.Item title={item.menuName} onPress={handleLogout} />
         )}
       />
     </>
