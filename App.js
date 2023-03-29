@@ -8,21 +8,27 @@ import logger from 'redux-logger';
 import {RTXquery} from './api/RTXquery';
 //style 관련
 import {Provider as PaperProvider} from 'react-native-paper';
-import {LogBox} from 'react-native';
 import {ko, registerTranslation} from 'react-native-paper-dates';
 import Toast from 'react-native-toast-message';
 import theme from './resources/style/theme';
+import {
+  NotificationListener,
+  requestUserPermission,
+} from './lib/pushNotificationManager';
 
 registerTranslation('ko', ko);
 
 const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(RTXquery.middleware, logger),
+    getDefaultMiddleware().concat(RTXquery.middleware),
   devTools: process.env.NODE_ENV !== 'production',
 });
 
 function App() {
+  useEffect(() => {
+    requestUserPermission().then(r => NotificationListener());
+  }, []);
   return (
     <>
       <Provider store={store}>
