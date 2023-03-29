@@ -11,9 +11,18 @@ import RegisterScreen from './RegisterScreen';
 import {useSelector} from 'react-redux';
 import theme from '../resources/style/theme';
 import AsyncStorage from '@react-native-community/async-storage';
+import {useEffect, useState} from 'react';
+import {getCookie} from '../lib/cookieManager';
 
 export default function ManageNavigation({}) {
   const Stack = createNativeStackNavigator();
+  const [initialRoute, setInitialRoute] = useState();
+
+  useEffect(() => {
+    getCookie().then(r => setInitialRoute(r));
+  }, []);
+
+  console.log(initialRoute);
 
   function getHeaderTitle(route) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -30,9 +39,7 @@ export default function ManageNavigation({}) {
     <>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={
-            AsyncStorage.getItem('access_token') ? 'Main' : 'Login'
-          }
+          initialRouteName={initialRoute}
           screenOptions={{
             headerStyle: {
               backgroundColor: theme.colors.elevation.level3,

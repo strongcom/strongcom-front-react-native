@@ -1,12 +1,12 @@
 import {TextInput, Button} from 'react-native-paper';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import Toast from 'react-native-toast-message';
 import {registerUser, setUserInfo} from '../modules/userSlice';
 import {useLoginMutation, userLoginMutation} from '../api/RTXquery';
 import {useDispatch} from 'react-redux';
 import theme from '../resources/style/theme';
-import {setCookieFromResponse} from '../lib/cookieManager';
+import {getCookie, setCookieFromResponse} from '../lib/cookieManager';
 
 export default function LoginScreen({navigation}) {
   const [id, setId] = useState('');
@@ -14,6 +14,10 @@ export default function LoginScreen({navigation}) {
   const [passwordHide, setPasswordHide] = useState(true);
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getCookie().then(r => navigation.navigate(r));
+  }, []);
 
   const showToast = () => {
     Toast.show({
