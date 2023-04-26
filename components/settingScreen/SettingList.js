@@ -15,6 +15,10 @@ export default function SettingList() {
       navigation.navigate('Login');
     });
   };
+
+  const handleImageAdd = () => {
+    navigation.navigate('ImageAdd');
+  };
   return (
     <>
       <FlatList
@@ -22,7 +26,16 @@ export default function SettingList() {
         style={styles.listWrapper}
         data={settingList}
         renderItem={({item}) => (
-          <List.Item title={item.menuName} onPress={handleLogout} />
+          <List.Item
+            title={item.menuName}
+            onPress={
+              item.key === 0
+                ? handleLogout
+                : item.key === 2
+                ? handleImageAdd
+                : null
+            }
+          />
         )}
       />
     </>

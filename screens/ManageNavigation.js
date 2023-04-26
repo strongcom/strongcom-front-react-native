@@ -13,16 +13,17 @@ import theme from '../resources/style/theme';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useEffect, useState} from 'react';
 import {getCookie} from '../lib/cookieManager';
+import ImageAddScreen from './ImageAddScreen';
 
 export default function ManageNavigation({}) {
   const Stack = createNativeStackNavigator();
-  const [initialRoute, setInitialRoute] = useState();
-
-  useEffect(() => {
-    getCookie().then(r => setInitialRoute(r));
-  }, []);
-
-  console.log(initialRoute);
+  // const [initialRoute, setInitialRoute] = useState();
+  //
+  // useEffect(() => {
+  //   getCookie().then(r => setInitialRoute(r));
+  // }, [initialRoute]);
+  //
+  // console.log(initialRoute);
 
   function getHeaderTitle(route) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -39,7 +40,7 @@ export default function ManageNavigation({}) {
     <>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={initialRoute}
+          initialRouteName={'Login'}
           screenOptions={{
             headerStyle: {
               backgroundColor: theme.colors.elevation.level3,
@@ -65,6 +66,7 @@ export default function ManageNavigation({}) {
             }}
           />
           <Stack.Screen name="Repetition" component={RepetitionScreen} />
+          <Stack.Screen name="ImageAdd" component={ImageAddScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

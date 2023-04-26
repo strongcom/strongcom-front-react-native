@@ -3,6 +3,7 @@ export const settingList = [
     key: 0,
     menuName: '로그아웃',
   },
+  {key: 2, menuName: '이미지 추가등록'},
   {key: 3, menuName: '도움말'},
   {key: 4, menuName: '오픈소스 라이센스'},
 ];
