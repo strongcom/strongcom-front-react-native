@@ -52,7 +52,7 @@ export default function TaskList({title = '전체 리마인더', filter}) {
   return (
     <>
       <View style={styles.titleContainer}>
-        <Text>{title}</Text>
+        <Text style={styles.title}>{title}</Text>
         {selectAllToggle ? (
           <View style={styles.chipContainer}>
             <Chip mode="flat" icon="cancel" onPress={handleCheckModCancel}>
@@ -125,5 +125,8 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 16,
     marginLeft: 8,
+  },
+  title: {
+    color: theme.colors.scrim,
   },
 });
