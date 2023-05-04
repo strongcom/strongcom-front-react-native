@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import Toast from 'react-native-toast-message';
 import {registerUser, setUserInfo} from '../modules/userSlice';
-import {useLoginMutation, userLoginMutation} from '../api/RTXquery';
+import {useLoginMutation, userLoginMutation} from '../api/SpringServer';
 import {useDispatch} from 'react-redux';
 import theme from '../resources/style/theme';
 import {getCookie, setCookieFromResponse} from '../lib/cookieManager';
@@ -29,7 +29,7 @@ export default function LoginScreen({navigation}) {
 
   const handleLogin = async () => {
     const {data, error} = await login({
-      userId: id,
+      username: id,
       password: password,
     });
     dispatch(setUserInfo({data, error}));

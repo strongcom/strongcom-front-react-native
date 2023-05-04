@@ -1,5 +1,5 @@
 import {FlatList, Text, View} from 'react-native';
-import {useGetReminderListQuery} from '../../api/RTXquery';
+import {useGetReminderListQuery} from '../../api/SpringServer';
 import {StyleSheet} from 'react-native';
 import {Checkbox, Chip, Divider, List} from 'react-native-paper';
 import theme from '../../resources/style/theme';

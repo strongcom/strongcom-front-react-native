@@ -9,7 +9,7 @@ import {
   dateToggleInput,
   initAddPageToggleState,
 } from '../modules/inputStateSlice';
-import {usePostReminderMutation} from '../api/RTXquery';
+import {usePostReminderMutation} from '../api/SpringServer';
 import theme from '../resources/style/theme';
 import {useEffect} from 'react';
 import {initReminder, setReminder} from '../modules/reminderSlice';

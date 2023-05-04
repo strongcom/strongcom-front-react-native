@@ -5,7 +5,7 @@ import rootReducer from './modules';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import {RTXquery} from './api/RTXquery';
+import {SpringServer} from './api/SpringServer';
 //style 관련
 import {Provider as PaperProvider} from 'react-native-paper';
 import {ko, registerTranslation} from 'react-native-paper-dates';
@@ -15,20 +15,27 @@ import {
   NotificationListener,
   requestUserPermission,
 } from './lib/pushNotificationManager';
+import {FlaskServer} from './api/FlaskServer';
+import AsyncStorage from '@react-native-community/async-storage';
 
 registerTranslation('ko', ko);
 
 const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(RTXquery.middleware),
+    getDefaultMiddleware().concat(
+      FlaskServer.middleware,
+      SpringServer.middleware,
+    ),
   devTools: process.env.NODE_ENV !== 'production',
 });
 
 function App() {
   useEffect(() => {
     requestUserPermission().then(r => NotificationListener());
+    // AsyncStorage.removeItem('access_token');
   }, []);
+
   return (
     <>
       <Provider store={store}>

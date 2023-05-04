@@ -3,10 +3,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 // const baseUrl = process.env.REACT_APP_API_URL;
 // const baseUrl = 'http://10.0.2.2:8080/api/';
+// const baseUrl = 'http://10.91.136.156:8080/api/';
 const baseUrl = 'http://strongsumin.milk717.com/api/';
 
-export const RTXquery = createApi({
-  reducerPath: 'RTXquery',
+export const SpringServer = createApi({
+  reducerPath: 'SpringServer',
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: async headers => {
@@ -65,4 +66,4 @@ export const {
   usePostReminderMutation,
   useRegisterUserMutation,
   useLoginMutation,
-} = RTXquery;
+} = SpringServer;

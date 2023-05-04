@@ -12,6 +12,7 @@ export default function SettingList() {
   //todo: 로그인 화면으로 넘어갔을 때 앱바 뒤로가기 비활성화하기
   const handleLogout = async () => {
     await AsyncStorage.removeItem('access_token').then(() => {
+      // console.log(AsyncStorage.get('access_token'));
       navigation.navigate('Login');
     });
   };

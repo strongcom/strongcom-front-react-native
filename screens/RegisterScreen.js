@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 import {useState} from 'react';
-import {useRegisterUserMutation} from '../api/RTXquery';
+import {useRegisterUserMutation} from '../api/SpringServer';
 import Toast from 'react-native-toast-message';
 import {useDispatch} from 'react-redux';
 import {setUserInfo} from '../modules/userSlice';
