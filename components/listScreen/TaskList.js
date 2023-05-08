@@ -31,7 +31,12 @@ export default function TaskList({title = '전체 리마인더', filter}) {
   }
 
   const handleCheckBox = id => {
-    setCheckedItemIdList(prev => [...new Set(prev).add(id)]);
+    if (checkedItemIdList.includes(id)) {
+      console.log(id);
+      checkedItemIdList.filter(v => v !== id);
+    } else {
+      setCheckedItemIdList(prev => [...new Set(prev).add(id)]);
+    }
     console.log(checkedItemIdList);
   };
 
