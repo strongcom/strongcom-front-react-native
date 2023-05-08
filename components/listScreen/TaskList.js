@@ -125,6 +125,8 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 16,
     marginLeft: 8,
+    width: 50,
+    height: 50,
   },
   title: {
     color: theme.colors.scrim,

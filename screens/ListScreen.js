@@ -10,7 +10,7 @@ export default function ListScreen({navigation}) {
       <View style={styles.container}>
         <TaskList filter={''} />
         <AnimatedFAB
-          icon={() => <Icon name="add" size={24} />}
+          icon={() => <Icon name="add" size={24} color={'black'} />}
           label={'Label'}
           extended={false}
           onPress={() => navigation.navigate('Add')}
