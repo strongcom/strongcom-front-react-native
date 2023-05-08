@@ -27,10 +27,10 @@ export default function ImageAddScreen() {
       if (response.error) {
         console.log('LaunchImageLibrary Error: ', response.error);
       } else {
-        console.log(response.assets[0].uri);
-        setImage(response.assets[0].uri);
-        setType(response.assets[0].type);
-        setName(response.assets[0].fileName);
+        console.log(response?.assets[0].uri);
+        setImage(response?.assets[0].uri);
+        setType(response?.assets[0].type);
+        setName(response?.assets[0].fileName);
       }
     }).then(r => console.log('successfully'));
   };
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   cardContainer: {
-    height: 600,
+    height: '80%',
     marginBottom: 16,
   },
   cardCover: {
