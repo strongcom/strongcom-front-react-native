@@ -6,6 +6,7 @@ import Toast from 'react-native-toast-message';
 import {useDispatch} from 'react-redux';
 import {setUserInfo} from '../modules/userSlice';
 import theme from '../resources/style/theme';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function RegisterScreen({navigation}) {
   const [id, setId] = useState('');
@@ -27,8 +28,9 @@ export default function RegisterScreen({navigation}) {
   const handleRegistration = async () => {
     if (password === checkPassword) {
       const {data, error} = await register({
-        userId: id,
+        username: id,
         password: password,
+        targetToken: await AsyncStorage.getItem('fcmToken'),
       });
       dispatch(setUserInfo({data, error}));
       if (error) {
