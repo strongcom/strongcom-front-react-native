@@ -4,14 +4,17 @@ import {StyleSheet} from 'react-native';
 import {Checkbox, Chip, Divider, List} from 'react-native-paper';
 import theme from '../../resources/style/theme';
 import {useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setSelectModToggle} from '../../modules/inputStateSlice';
 
-export default function TaskList({title = '전체 리마인더', filter}) {
+export default function TaskList({
+  title = '전체 리마인더',
+  data,
+  error,
+  isLoading,
+}) {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const {data, error, isLoading} = useGetReminderListQuery(filter);
   const [selectAllToggle, setSelectAllToggle] = useState(false);
   const [checkedItemIdList, setCheckedItemIdList] = useState([]);
 
