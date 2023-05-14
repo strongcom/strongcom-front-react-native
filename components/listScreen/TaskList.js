@@ -1,12 +1,8 @@
-import {FlatList, Text, View} from 'react-native';
-import {useGetReminderListQuery} from '../../api/SpringServer';
-import {StyleSheet} from 'react-native';
-import {Checkbox, Chip, Divider, List} from 'react-native-paper';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {Chip, Divider, List} from 'react-native-paper';
 import theme from '../../resources/style/theme';
 import {useNavigation} from '@react-navigation/native';
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {setSelectModToggle} from '../../modules/inputStateSlice';
+import {useState} from 'react';
 
 export default function TaskList({
   title = '전체 리마인더',

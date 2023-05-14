@@ -1,7 +1,7 @@
-import {StyleSheet, View, Image} from 'react-native';
-import {Card, Button} from 'react-native-paper';
+import {Image, StyleSheet, View} from 'react-native';
+import {Button, Card} from 'react-native-paper';
 import theme from '../resources/style/theme';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {usePostImageMutation} from '../api/FlaskServer';
 

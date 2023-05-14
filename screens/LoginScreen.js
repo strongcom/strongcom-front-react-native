@@ -1,13 +1,12 @@
-import {TextInput, Button} from 'react-native-paper';
-import {useEffect, useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {Button, TextInput} from 'react-native-paper';
+import {useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import Toast from 'react-native-toast-message';
-import {registerUser, setUserInfo} from '../modules/authSlice';
-import {useLoginMutation, userLoginMutation} from '../api/SpringServer';
+import {setUserInfo} from '../modules/authSlice';
+import {useLoginMutation} from '../api/SpringServer';
 import {useDispatch} from 'react-redux';
 import theme from '../resources/style/theme';
 import {getAsyncData, setCookieFromResponse} from '../lib/cookieManager';
-import {CommonActions} from '@react-navigation/native';
 
 export default function LoginScreen({navigation}) {
   const [id, setId] = useState('');

@@ -5,9 +5,8 @@ import {
 } from '../modules/reminderSlice';
 import {Divider, RadioButton} from 'react-native-paper';
 import {repetitionList} from '../resources/string';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import DaySelectCheckboxItem from '../components/addScreen/DaySelectCheckboxItem';
-import {useState} from 'react';
 import theme from '../resources/style/theme';
 
 export default function RepetitionScreen() {

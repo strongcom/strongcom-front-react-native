@@ -1,4 +1,4 @@
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import SettingList from '../components/settingScreen/SettingList';
 import UserProfile from '../components/settingScreen/UserProfile';
 import theme from '../resources/style/theme';

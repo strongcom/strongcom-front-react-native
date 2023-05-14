@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import theme from '../resources/style/theme';
-import {Divider, Text} from 'react-native-paper';
 import TaskList from '../components/listScreen/TaskList';
 
 function HomeScreen() {

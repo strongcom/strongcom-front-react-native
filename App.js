@@ -4,7 +4,6 @@ import ManageNavigation from './navigation/ManageNavigation';
 import rootReducer from './modules';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
-import logger from 'redux-logger';
 import {SpringServer} from './api/SpringServer';
 //style 관련
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -16,7 +15,6 @@ import {
   requestUserPermission,
 } from './lib/pushNotificationManager';
 import {FlaskServer} from './api/FlaskServer';
-import AsyncStorage from '@react-native-community/async-storage';
 
 registerTranslation('ko', ko);
 

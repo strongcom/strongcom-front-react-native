@@ -1,6 +1,6 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {Avatar} from '@react-native-material/core';
-import {Text} from 'react-native';
+
 export default function UserProfile() {
   return (
     <>

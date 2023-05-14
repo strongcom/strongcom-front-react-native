@@ -2,7 +2,7 @@ import {
   getFocusedRouteNameFromRoute,
   NavigationContainer,
 } from '@react-navigation/native';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {getAsyncData} from '../lib/cookieManager';
 import {Text} from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
