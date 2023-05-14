@@ -15,6 +15,7 @@ import {
   requestUserPermission,
 } from './lib/pushNotificationManager';
 import {FlaskServer} from './api/FlaskServer';
+import {logger} from 'redux-logger/src';
 
 registerTranslation('ko', ko);
 
@@ -24,6 +25,7 @@ const store = configureStore({
     getDefaultMiddleware().concat(
       FlaskServer.middleware,
       SpringServer.middleware,
+      logger,
     ),
   devTools: process.env.NODE_ENV !== 'production',
 });

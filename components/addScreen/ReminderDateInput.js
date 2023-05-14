@@ -2,14 +2,20 @@ import {useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {dateToggleInput} from '../../modules/inputStateSlice';
 import {StyleSheet, View} from 'react-native';
-import {Button, Text} from '@react-native-material/core';
-import {Switch} from 'native-base';
 import {DatePickerModal} from 'react-native-paper-dates';
 import {endDateInput, startDateInput} from '../../modules/reminderSlice';
 import dayjs from 'dayjs';
-import {Divider, Surface} from 'react-native-paper';
+import {
+  Surface,
+  Button,
+  Text,
+  Switch,
+  IconButton,
+  TouchableRipple,
+} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
+import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 export default function ReminderDateInput() {
   const reminder = useSelector(state => state.reminder);
@@ -40,46 +46,32 @@ export default function ReminderDateInput() {
 
   return (
     <Surface style={styles.container}>
-      <View style={styles.dateButtonContainer}>
-        <Text variant="h6">날짜</Text>
+      <View style={styles.toggleContainer}>
+        <Text variant="titleMedium">날짜</Text>
         <Switch value={dateToggle} onValueChange={handleDateToggle} />
       </View>
       {dateToggle && (
-        <View>
-          <View style={styles.dateButtonContainer}>
-            <Button
-              variant={'outlined'}
-              title={reminder.startDate}
-              onPress={() => setOpen(true)}
-            />
-            <Text> ~ </Text>
-            <Button
-              variant={'outlined'}
-              title={reminder.endDate}
-              onPress={() => setOpen(true)}
-            />
-          </View>
-          <DatePickerModal
-            locale="ko"
-            mode="range"
-            visible={open}
-            onDismiss={onDismiss}
-            startDate={new Date(reminder.startDate)}
-            endDate={new Date(reminder.endDate)}
-            onConfirm={onConfirm}
-          />
+        <View style={styles.dateButtonContainer}>
+          <Button
+            icon="calendar-month-outline"
+            mode="text"
+            onPress={() => setOpen(true)}>
+            {reminder.startDate} ~ {reminder.endDate}
+          </Button>
+          <Button icon="repeat" mode="text" onPress={() => setOpen(true)}>
+            반복 설정
+          </Button>
         </View>
       )}
-      <Divider />
-      <View style={styles.buttonContainer}>
-        <Button
-          title="반복 안함"
-          leading={() => <Icon name="repeat" size={24} />}
-          variant="outlined"
-          color="black"
-          onPress={handleRepetitionClick}
-        />
-      </View>
+      <DatePickerModal
+        locale="ko"
+        mode="range"
+        visible={open}
+        onDismiss={onDismiss}
+        startDate={new Date(reminder.startDate)}
+        endDate={new Date(reminder.endDate)}
+        onConfirm={onConfirm}
+      />
     </Surface>
   );
 }
@@ -87,19 +79,25 @@ export default function ReminderDateInput() {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
-    paddingVertical: 8,
+    padding: 16,
     marginBottom: 16,
+  },
+  toggleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  dateButton: {
+    padding: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'gray',
   },
   dateButtonContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 16,
-    marginVertical: 8,
-  },
-  buttonContainer: {
-    marginHorizontal: 8,
-    marginTop: 8,
+    marginTop: 4,
   },
 });

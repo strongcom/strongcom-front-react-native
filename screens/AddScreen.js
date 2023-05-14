@@ -20,24 +20,24 @@ export default function AddScreen({navigation, route}) {
   const [postReminder] = usePostReminderMutation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (route.params?.reminder) {
-      dispatch(setReminder(JSON.stringify(route.params?.reminder)));
-      console.log(reminder.startDate, reminder.endDate);
-      if (
-        reminder.startDate === reminder.endDate &&
-        reminder.endDate === dayjs().format('YYYY-MM-DD')
-      ) {
-        dispatch(dateToggleInput(false));
-      } else {
-        dispatch(dateToggleInput(true));
-      }
-    }
-    return () => {
-      dispatch(initReminder());
-      dispatch(initAddPageToggleState());
-    };
-  }, [dispatch, reminder.endDate, reminder.startDate, route.params]);
+  // useEffect(() => {
+  //   if (route.params?.reminder) {
+  //     dispatch(setReminder(JSON.stringify(route.params?.reminder)));
+  //     console.log(reminder.startDate, reminder.endDate);
+  //     if (
+  //       reminder.startDate === reminder.endDate &&
+  //       reminder.endDate === dayjs().format('YYYY-MM-DD')
+  //     ) {
+  //       dispatch(dateToggleInput(false));
+  //     } else {
+  //       dispatch(dateToggleInput(true));
+  //     }
+  //   }
+  //   return () => {
+  //     dispatch(initReminder());
+  //     dispatch(initAddPageToggleState());
+  //   };
+  // }, [dispatch, reminder.endDate, reminder.startDate, route.params]);
 
   const handleSubmit = async () => {
     // console.log(reminder);
