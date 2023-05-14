@@ -58,7 +58,7 @@ export default function ReminderDateInput() {
             onPress={() => setOpen(true)}>
             {reminder.startDate} ~ {reminder.endDate}
           </Button>
-          <Button icon="repeat" mode="text" onPress={() => setOpen(true)}>
+          <Button icon="repeat" mode="text" onPress={handleRepetitionClick}>
             반복 설정
           </Button>
         </View>
