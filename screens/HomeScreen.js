@@ -1,13 +1,63 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import theme from '../resources/style/theme';
 import TaskList from '../components/listScreen/TaskList';
+import {useGetReminderListQuery} from '../api/SpringServer';
+import {AnimatedFAB} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-function HomeScreen() {
+function HomeScreen({navigation}) {
+  const [refreshing, setRefreshing] = useState(false);
+  const {data, error, isLoading, refetch, isFetching} =
+    useGetReminderListQuery('');
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+  }, []);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  useEffect(() => {
+    if (refreshing) {
+      refetch();
+    }
+  }, [refreshing]);
+
+  useEffect(() => {
+    setRefreshing(isFetching);
+  }, [isFetching]);
   return (
-    <View style={styles.container}>
-      <TaskList filter={''} title={'오늘의 리마인더'} />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <TaskList
+          data={data}
+          error={error}
+          isLoading={isLoading}
+          filter="today"
+          title="오늘의 리마인더"
+        />
+        <AnimatedFAB
+          icon={() => <Icon name="add" size={24} color={'black'} />}
+          label={'Label'}
+          extended={false}
+          onPress={() => navigation.navigate('Add')}
+          iconMode={'static'}
+          style={styles.fabStyle}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -16,7 +66,14 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
     backgroundColor: theme.colors.elevation.level0,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  fabStyle: {
+    bottom: 16,
+    right: 16,
+    position: 'absolute',
   },
 });
