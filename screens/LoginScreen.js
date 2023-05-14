@@ -15,9 +15,9 @@ export default function LoginScreen({navigation}) {
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getCookie().then(r => navigation.navigate(r));
-  }, []);
+  // useEffect(() => {
+  //   getCookie().then(r => navigation.navigate(r));
+  // }, []);
 
   const showToast = () => {
     Toast.show({

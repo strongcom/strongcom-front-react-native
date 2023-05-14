@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import ManageNavigation from './screens/ManageNavigation';
+import ManageNavigation from './navigation/ManageNavigation';
 //redux 관련
 import rootReducer from './modules';
 import {Provider} from 'react-redux';
