@@ -5,7 +5,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
-export default function BottomBar() {
+export default function TabNavigator() {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
