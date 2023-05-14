@@ -43,6 +43,7 @@ export default function AddScreen({navigation, route}) {
     // console.log(reminder);
     const {data, error} = await postReminder({
       ...reminder,
+      repetitionDay: reminder.repetitionDay.join(' '),
     });
     console.log(data, error);
     dispatch(initAddPageToggleState());
