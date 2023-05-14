@@ -87,12 +87,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  dateButton: {
-    padding: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: 'gray',
-  },
   dateButtonContainer: {
     display: 'flex',
     flexDirection: 'row',

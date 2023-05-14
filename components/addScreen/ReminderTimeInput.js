@@ -2,10 +2,8 @@ import {useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {timeToggleInput} from '../../modules/inputStateSlice';
 import {StyleSheet, View} from 'react-native';
-import {Button, Text} from '@react-native-material/core';
-import {Switch} from 'native-base';
 import {TimePickerModal} from 'react-native-paper-dates';
-import {Surface} from 'react-native-paper';
+import {Surface, Button, Text, Switch} from 'react-native-paper';
 import {endTimeInput, startTimeInput} from '../../modules/reminderSlice';
 import dayjs from 'dayjs';
 
@@ -53,45 +51,45 @@ export default function ReminderTimeInput() {
 
   return (
     <Surface style={styles.container}>
-      <View style={styles.dateButtonContainer}>
-        <Text variant="h6">시간</Text>
+      <View style={styles.toggleContainer}>
+        <Text variant="titleMedium">시간</Text>
         <Switch value={timeToggle} onValueChange={handleDateToggle} />
       </View>
       {timeToggle && (
-        <View>
-          <View style={styles.dateButtonContainer}>
-            <Button
-              variant={'outlined'}
-              title={reminder.startTime}
-              onPress={() => setStartTimeOpen(true)}
-            />
-            <Text> ~ </Text>
-            <Button
-              variant={'outlined'}
-              title={reminder.endTime}
-              onPress={() => setEndTimeOpen(true)}
-            />
-          </View>
-          <TimePickerModal
-            locale="ko"
-            mode="range"
-            visible={startTimeOpen}
-            onDismiss={onStartTimeDismiss}
-            onConfirm={onStartTimeConfirm}
-            hours={reminder.startTime.slice(0, 2)}
-            minutes={reminder.startTime.slice(3, 5)}
-          />
-          <TimePickerModal
-            locale="ko"
-            mode="range"
-            visible={endTimeOpen}
-            onDismiss={onEndTimeDismiss}
-            onConfirm={onEndTimeConfirm}
-            hours={reminder.endDate.slice(0, 2)}
-            minutes={reminder.endDate.slice(3, 5)}
-          />
+        <View style={styles.timeButtonContainer}>
+          <Button
+            icon="clock-time-four-outline"
+            mode="text"
+            onPress={() => setStartTimeOpen(true)}>
+            {reminder.startTime}
+          </Button>
+          <Button mode="text">~</Button>
+          <Button
+            icon="clock-time-eight-outline"
+            mode="text"
+            onPress={() => setStartTimeOpen(true)}>
+            {reminder.endTime}
+          </Button>
         </View>
       )}
+      <TimePickerModal
+        locale="ko"
+        mode="range"
+        visible={startTimeOpen}
+        onDismiss={onStartTimeDismiss}
+        onConfirm={onStartTimeConfirm}
+        hours={reminder.startTime.slice(0, 2)}
+        minutes={reminder.startTime.slice(3, 5)}
+      />
+      <TimePickerModal
+        locale="ko"
+        mode="range"
+        visible={endTimeOpen}
+        onDismiss={onEndTimeDismiss}
+        onConfirm={onEndTimeConfirm}
+        hours={reminder.endDate.slice(0, 2)}
+        minutes={reminder.endDate.slice(3, 5)}
+      />
     </Surface>
   );
 }
@@ -99,15 +97,19 @@ export default function ReminderTimeInput() {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
-    paddingVertical: 8,
+    padding: 16,
     marginBottom: 16,
   },
-  dateButtonContainer: {
+  toggleContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 16,
-    marginVertical: 8,
+  },
+  timeButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 4,
   },
 });
