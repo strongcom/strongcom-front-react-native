@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 const initialState = {
   title: '',
-  content: '',
+  content: null,
   startDate: dayjs().format('YYYY-MM-DD'),
   endDate: dayjs().format('YYYY-MM-DD'),
   startTime: dayjs().format('HH:mm:ss'),
@@ -20,7 +20,7 @@ export const reminderSlice = createSlice({
       state.title = action.payload;
     },
     contentInput: (state, action) => {
-      state.content = action.payload;
+      state.content = !action.payload ? null : action.payload;
     },
     startDateInput: (state, action) => {
       state.startDate = action.payload;
