@@ -72,6 +72,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingHorizontal: 24,
+    marginRight: 10,
   },
 });
