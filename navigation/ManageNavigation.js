@@ -3,40 +3,35 @@ import {
   NavigationContainer,
 } from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {getCookie} from '../lib/cookieManager';
+import {getAsyncData} from '../lib/cookieManager';
 import {Text} from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import theme from '../resources/style/theme';
-import BottomBar from './BottomBar';
+import TabNavigator from './TabNavigator';
 import AddScreen from '../screens/AddScreen';
 import RepetitionScreen from '../screens/RepetitionScreen';
 import ImageAddScreen from '../screens/ImageAddScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import {useDispatch, useSelector} from 'react-redux';
 
 export default function ManageNavigation({}) {
   const Stack = createNativeStackNavigator();
 
-  const [state, setState] = useState('loading');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.auth.data);
+  const loading = useSelector(state => state.auth.loading);
+  const error = useSelector(state => state.auth.error);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await getCookie();
-        setIsLoggedIn(!!res);
-      } catch (e) {
-        setState('error');
-      } finally {
-        setState('success');
-      }
-    })();
-  }, []);
+    dispatch(getAsyncData('access_token'));
+  }, [data]);
 
   useEffect(() => {
-    console.log('state', state);
-    console.log('isLoggedIn', isLoggedIn);
-  }, [state, isLoggedIn]);
+    console.log('data', data);
+    console.log('loading', loading);
+    console.log('error', error);
+  }, [data, loading, error]);
 
   function getHeaderTitle(route) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -48,43 +43,41 @@ export default function ManageNavigation({}) {
     return nameMap[routeName];
   }
 
-  if (state === 'loading') {
+  if (loading) {
     return <Text>{'로딩중'}</Text>;
-  } else if (state === 'error') {
-    return <Text>{'쿠키 가져오기 오류'}</Text>;
-  } else {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={isLoggedIn ? 'Main' : 'Login'}
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: theme.colors.elevation.level3,
-            },
-          }}>
-          <Stack.Screen
-            name="Main"
-            component={BottomBar}
-            options={({route}) => ({
-              title: getHeaderTitle(route),
-              headerBackVisible: false,
-            })}
-          />
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen
-            name="Add"
-            component={AddScreen}
-            options={{
-              headerStyle: {
-                backgroundColor: theme.colors.elevation.level3,
-              },
-            }}
-          />
-          <Stack.Screen name="Repetition" component={RepetitionScreen} />
-          <Stack.Screen name="ImageAdd" component={ImageAddScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
   }
+  if (error) {
+    return <Text>{error.message}</Text>;
+  }
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: theme.colors.elevation.level3,
+          },
+        }}>
+        {data ? (
+          <>
+            <Stack.Screen
+              name="Main"
+              component={TabNavigator}
+              options={({route}) => ({
+                title: getHeaderTitle(route),
+              })}
+            />
+            <Stack.Screen name="Add" component={AddScreen} />
+            <Stack.Screen name="Repetition" component={RepetitionScreen} />
+            <Stack.Screen name="ImageAdd" component={ImageAddScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }

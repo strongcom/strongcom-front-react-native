@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {useRegisterUserMutation} from '../api/SpringServer';
 import Toast from 'react-native-toast-message';
 import {useDispatch} from 'react-redux';
-import {setUserInfo} from '../modules/userSlice';
+import {setUserInfo} from '../modules/authSlice';
 import theme from '../resources/style/theme';
 import AsyncStorage from '@react-native-community/async-storage';
 

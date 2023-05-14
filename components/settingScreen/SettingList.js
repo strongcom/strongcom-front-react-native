@@ -1,25 +1,25 @@
 import {FlatList, StyleSheet, Text} from 'react-native';
 import {settingList} from '../../resources/string';
-import {Stack} from '@react-native-material/core';
 import {Divider} from 'react-native-paper';
 import {List} from 'react-native-paper';
-import theme from '../../resources/style/theme';
-import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
+import {getAsyncData} from '../../lib/cookieManager';
+import {useDispatch} from 'react-redux';
 
-export default function SettingList() {
-  const navigation = useNavigation();
+export default function SettingList({navigation}) {
+  const dispatch = useDispatch();
   //todo: 로그인 화면으로 넘어갔을 때 앱바 뒤로가기 비활성화하기
   const handleLogout = async () => {
     await AsyncStorage.removeItem('access_token').then(() => {
-      // console.log(AsyncStorage.get('access_token'));
-      navigation.navigate('Login');
+      // navigation.navigate('Main');
+      dispatch(getAsyncData('access_token'));
     });
   };
 
   const handleImageAdd = () => {
     navigation.navigate('ImageAdd');
   };
+
   return (
     <>
       <FlatList
