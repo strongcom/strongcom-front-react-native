@@ -14,7 +14,7 @@ import {
   usePostReminderMutation,
 } from '../api/SpringServer';
 import theme from '../resources/style/theme';
-import {useEffect} from 'react';
+import {useEffect, useLayoutEffect} from 'react';
 import {initReminder, setReminder} from '../modules/reminderSlice';
 import dayjs from 'dayjs';
 
@@ -23,6 +23,14 @@ export default function AddScreen({navigation, route}) {
   const {data, error, isLoading} = useGetReminderByIdQuery(route.params?.id);
   const [postReminder] = usePostReminderMutation();
   const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    if (route.params?.id) {
+      navigation.setOptions({
+        headerTitle: '리마인더 수정',
+      });
+    }
+  }, [navigation]);
 
   useEffect(() => {
     if (route.params?.id && data && !isLoading && !error) {
