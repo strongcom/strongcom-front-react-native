@@ -1,9 +1,9 @@
 export const settingList = [
+  {key: 2, menuName: '이미지 추가등록'},
   {
     key: 0,
     menuName: '로그아웃',
   },
-  {key: 2, menuName: '이미지 추가등록'},
 ];
 
 export const repetitionList = [
