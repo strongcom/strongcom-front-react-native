@@ -24,6 +24,9 @@ export const SpringServer = createApi({
         return [{type: 'Reminder'}];
       },
     }),
+    getReminderById: builder.query({
+      query: id => ({url: `reminder/${id}`}),
+    }),
     postReminder: builder.mutation({
       query: body => {
         return {
@@ -63,6 +66,7 @@ export const SpringServer = createApi({
 
 export const {
   useGetReminderListQuery,
+  useGetReminderByIdQuery,
   usePostReminderMutation,
   useRegisterUserMutation,
   useLoginMutation,
