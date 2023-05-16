@@ -33,7 +33,7 @@ export default function ManageNavigation({}) {
     console.log('error', error);
   }, [data, loading, error]);
 
-  function getHeaderTitle(route) {
+  const getHeaderTitleInTabNav = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
     const nameMap = {
       Home: '홈',
@@ -41,7 +41,7 @@ export default function ManageNavigation({}) {
       Setting: '설정',
     };
     return nameMap[routeName];
-  }
+  };
 
   if (loading) {
     return <Text>{'로딩중'}</Text>;
@@ -64,17 +64,37 @@ export default function ManageNavigation({}) {
               name="Main"
               component={TabNavigator}
               options={({route}) => ({
-                title: getHeaderTitle(route),
+                title: getHeaderTitleInTabNav(route),
               })}
             />
-            <Stack.Screen name="Add" component={AddScreen} />
-            <Stack.Screen name="Repetition" component={RepetitionScreen} />
-            <Stack.Screen name="ImageAdd" component={ImageAddScreen} />
+            <Stack.Screen
+              name="Add"
+              component={AddScreen}
+              options={{title: '리마인더 추가'}}
+            />
+            <Stack.Screen
+              name="Repetition"
+              component={RepetitionScreen}
+              options={{title: '반복 설정'}}
+            />
+            <Stack.Screen
+              name="ImageAdd"
+              component={ImageAddScreen}
+              options={{title: '이미지 추가등록'}}
+            />
           </>
         ) : (
           <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{title: '로그인'}}
+            />
+            <Stack.Screen
+              name="Register"
+              component={RegisterScreen}
+              options={{title: '회원가입'}}
+            />
           </>
         )}
       </Stack.Navigator>
