@@ -1,5 +1,5 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {Chip, Divider, List} from 'react-native-paper';
+import {FlatList, StyleSheet, View} from 'react-native';
+import {Chip, Divider, List, Text} from 'react-native-paper';
 import theme from '../../resources/style/theme';
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
@@ -15,18 +15,10 @@ export default function TaskList({
   const [checkedItemIdList, setCheckedItemIdList] = useState([]);
 
   if (isLoading) {
-    return (
-      <>
-        <Text>Loading...</Text>
-      </>
-    );
+    return <Text>Loading...</Text>;
   }
   if (error) {
-    return (
-      <>
-        <Text>Error...</Text>
-      </>
-    );
+    return <Text>Error...</Text>;
   }
 
   const handleCheckBox = id => {
@@ -62,6 +54,7 @@ export default function TaskList({
             <Chip mode="flat" icon="cancel" onPress={handleCheckModCancel}>
               취소
             </Chip>
+            기
             <Chip mode="flat" icon="delete" onPress={handleDelete}>
               체크된 항목 삭제
             </Chip>
@@ -79,16 +72,16 @@ export default function TaskList({
             description={item?.subTitle}
             onPress={() =>
               selectAllToggle
-                ? handleCheckBox(item._id)
-                : navigation.navigate({name: 'Add', params: {reminder: item}})
+                ? handleCheckBox(item.id)
+                : navigation.navigate({name: 'Add', params: {id: item.id}})
             }
-            onLongPress={() => handleLongPress(item._id)}
+            onLongPress={() => handleLongPress(item.id)}
             left={() => (
               <List.Icon
                 style={styles.listLeft}
                 color={theme.colors.primary}
                 icon={
-                  checkedItemIdList.includes(item._id)
+                  checkedItemIdList.includes(item.id)
                     ? 'check-bold'
                     : 'reminder'
                 }
@@ -96,7 +89,7 @@ export default function TaskList({
             )}
           />
         )}
-        keyExtractor={item => item._id}
+        keyExtractor={item => item.id}
       />
     </>
   );
