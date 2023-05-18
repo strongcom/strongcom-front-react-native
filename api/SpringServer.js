@@ -1,15 +1,18 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import AsyncStorage from '@react-native-community/async-storage';
+import {nodeServer} from '../resources/serverInfo';
 
 // const baseUrl = process.env.REACT_APP_API_URL;
 // const baseUrl = 'http://10.0.2.2:8080/api/';
 // const baseUrl = 'http://10.91.136.156:8080/api/';
-const baseUrl = 'https://strongsumin.milk717.com/api/';
+// const baseUrl = 'https://strongsumin.milk717.com/api/';
+
+const server = nodeServer;
 
 export const SpringServer = createApi({
   reducerPath: 'SpringServer',
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
+    baseUrl: server.baseUrl,
     prepareHeaders: async headers => {
       headers.set('Cookie', await AsyncStorage.getItem('access_token'));
       return headers;
@@ -18,19 +21,19 @@ export const SpringServer = createApi({
   tagTypes: ['Reminder'],
   endpoints: builder => ({
     getReminderList: builder.query({
-      query: filter => ({url: `reminder/${filter}`}),
+      query: filter => ({url: server.getReminder(filter)}),
       providesTags: (result, error, arg) => {
         // console.log(result, error);
         return [{type: 'Reminder'}];
       },
     }),
     getReminderById: builder.query({
-      query: id => ({url: `reminder/${id}`}),
+      query: id => ({url: server.getReminderById(id)}),
     }),
     postReminder: builder.mutation({
       query: body => {
         return {
-          url: 'reminder',
+          url: server.postReminder,
           method: 'POST',
           body: body,
         };
@@ -40,7 +43,7 @@ export const SpringServer = createApi({
     registerUser: builder.mutation({
       query: ({...body}) => {
         return {
-          url: 'auth/register',
+          url: server.registerUser,
           method: 'POST',
           body: body,
         };
@@ -49,7 +52,7 @@ export const SpringServer = createApi({
     login: builder.mutation({
       query: ({...body}) => {
         return {
-          url: 'auth/login',
+          url: server.login,
           method: 'POST',
           body: body,
         };
