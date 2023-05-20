@@ -7,12 +7,13 @@ import {useLoginMutation} from '../api/SpringServer';
 import {useDispatch} from 'react-redux';
 import theme from '../resources/style/theme';
 import {getAsyncData, setCookieFromResponse} from '../lib/cookieManager';
+import {login, loginWithKakaoAccount} from '@react-native-seoul/kakao-login';
 
 export default function LoginScreen({navigation}) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHide, setPasswordHide] = useState(true);
-  const [login] = useLoginMutation();
+  const [defaultLogin] = useLoginMutation();
   const dispatch = useDispatch();
 
   const showToast = () => {
@@ -24,7 +25,7 @@ export default function LoginScreen({navigation}) {
   };
 
   const handleLogin = async () => {
-    const {data, error} = await login({
+    const {data, error} = await defaultLogin({
       username: id,
       password: password,
     });
@@ -36,6 +37,13 @@ export default function LoginScreen({navigation}) {
       dispatch(getAsyncData('access_token'));
       // navigation.navigate('Main');
     }
+  };
+
+  const signInWithKakao = async () => {
+    const token = await login();
+    console.log(token);
+    console.log('로그인함');
+    console.log(JSON.stringify(token));
   };
 
   return (
@@ -77,12 +85,12 @@ export default function LoginScreen({navigation}) {
           onPress={() => navigation.navigate('Register')}>
           회원가입
         </Button>
-        {/*<Button*/}
-        {/*  style={styles.button}*/}
-        {/*  mode="outlined"*/}
-        {/*  onPress={() => navigation.navigate('Main')}>*/}
-        {/*  쿠키 테스트*/}
-        {/*</Button>*/}
+        <Button
+          style={styles.button}
+          mode="outlined"
+          onPress={() => signInWithKakao()}>
+          카카오 로그인
+        </Button>
       </View>
     </>
   );

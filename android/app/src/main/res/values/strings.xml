@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">나가기 전에 생각했나요?</string>
+    <string name="kakao_app_key">981f611822f8e8725c3364bb1ba4fb66</string>
 </resources>

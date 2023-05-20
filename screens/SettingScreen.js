@@ -3,11 +3,11 @@ import SettingList from '../components/settingScreen/SettingList';
 import UserProfile from '../components/settingScreen/UserProfile';
 import theme from '../resources/style/theme';
 
-export default function SettingScreen() {
+export default function SettingScreen({navigation}) {
   return (
     <View style={styles.container}>
       <UserProfile />
-      <SettingList />
+      <SettingList navigation={navigation} />
     </View>
   );
 }
