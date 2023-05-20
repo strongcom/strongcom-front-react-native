@@ -2,7 +2,7 @@ import {FlatList, StyleSheet} from 'react-native';
 import {settingList} from '../../resources/string';
 import {Divider, List} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
-import {getAsyncData} from '../../lib/cookieManager';
+import {getAsyncData} from '../../lib/AsyncManager';
 import {useDispatch} from 'react-redux';
 
 export default function SettingList({navigation}) {

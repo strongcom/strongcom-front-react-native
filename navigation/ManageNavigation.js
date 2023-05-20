@@ -3,7 +3,7 @@ import {
   NavigationContainer,
 } from '@react-navigation/native';
 import {useEffect} from 'react';
-import {getAsyncData} from '../lib/cookieManager';
+import {getAsyncData} from '../lib/AsyncManager';
 import {Text} from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import theme from '../resources/style/theme';
@@ -27,11 +27,11 @@ export default function ManageNavigation({}) {
     dispatch(getAsyncData('access_token'));
   }, [data]);
 
-  useEffect(() => {
-    console.log('data', data);
-    console.log('loading', loading);
-    console.log('error', error);
-  }, [data, loading, error]);
+  // useEffect(() => {
+  //   console.log('data', data);
+  //   console.log('loading', loading);
+  //   console.log('error', error);
+  // }, [data, loading, error]);
 
   const getHeaderTitleInTabNav = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -93,8 +93,13 @@ export default function ManageNavigation({}) {
             <Stack.Screen
               name="Register"
               component={RegisterScreen}
-              options={{title: '회원가입'}}
+              options={{title: '추가 정보 등록'}}
             />
+            {/*<Stack.Screen*/}
+            {/*  name="Register"*/}
+            {/*  component={RegisterScreen}*/}
+            {/*  options={{title: '회원가입'}}*/}
+            {/*/>*/}
           </>
         )}
       </Stack.Navigator>

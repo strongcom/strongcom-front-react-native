@@ -7,6 +7,8 @@ export const nodeServer = {
   patchReminder: id => `reminder/${id}`,
   registerUser: 'auth/register',
   login: 'auth/login',
+  kakao: 'auth/kakao',
+  postUsername: 'auth/username',
 };
 
 export const springServer = {

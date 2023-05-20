@@ -1,43 +1,78 @@
-import {StyleSheet, Text, View} from 'react-native';
-import {Button, TextInput} from 'react-native-paper';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import {Button, Card, TextInput} from 'react-native-paper';
 import {useState} from 'react';
-import {useRegisterUserMutation} from '../api/SpringServer';
-import Toast from 'react-native-toast-message';
+import {usePostUsernameMutation} from '../api/SpringServer';
 import {useDispatch} from 'react-redux';
-import {setUserInfo} from '../modules/authSlice';
 import theme from '../resources/style/theme';
-import AsyncStorage from '@react-native-community/async-storage';
+import {usePostImageMutation} from '../api/FlaskServer';
+import {launchImageLibrary} from 'react-native-image-picker';
+import showToast from '../lib/showToast';
 
 export default function RegisterScreen({navigation}) {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-  const [checkPassword, setCheckPassword] = useState('');
-  const [name, setName] = useState('');
-  const [passwordHide, setPasswordHide] = useState(true);
-  const [register, {isLoading}] = useRegisterUserMutation();
+  const [username, setUsername] = useState('');
+  const [postUsername] = usePostUsernameMutation();
+  const initImageUrl =
+    'https://cdn-icons-png.flaticon.com/512/3566/3566345.png';
+  const options = {
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+      selectionLimit: 1,
+      mediaType: 'image',
+      includeBase64: false,
+    },
+  };
+  const [image, setImage] = useState(initImageUrl);
+  const [type, setType] = useState(null);
+  const [name, setName] = useState(null);
+  const [postImage] = usePostImageMutation();
   const dispatch = useDispatch();
 
-  const showToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: '회원가입에 실패했습니다.',
-      topOffset: 70,
+  const handleImageClick = () => {
+    launchImageLibrary(options, response => {
+      if (response.error) {
+        showToast({
+          error: 'error',
+          text1: '갤러리 불러오기 오류 발생',
+          text2: response.error,
+        });
+      }
+    })
+      .then(response => {
+        setImage(response?.assets[0]?.uri);
+        setType(response?.assets[0]?.type);
+        setName(response?.assets[0]?.fileName);
+      })
+      .catch(e => {
+        if (!name) {
+          showToast({
+            error: 'error',
+            text1: '이미지를 선택해주세요',
+            text2: e,
+          });
+        }
+      });
+  };
+
+  const handlePostImage = async () => {
+    const form = new FormData();
+    form.append('file', {
+      uri: image,
+      type: type,
+      name: name,
     });
+    form.append('userid', 'ksumin');
+    const request = await postImage(form);
+    console.log(request);
   };
 
   const handleRegistration = async () => {
-    if (password === checkPassword) {
-      const {data, error} = await register({
-        username: id,
-        password: password,
-        targetToken: await AsyncStorage.getItem('fcmToken'),
-      });
-      dispatch(setUserInfo({data, error}));
-      if (error) {
-        showToast();
-      } else {
-        navigation.navigate('Main');
-      }
+    const {data, error} = await postUsername({
+      username: username,
+    });
+    if (error) {
+      showToast();
+    } else {
     }
   };
 
@@ -46,60 +81,26 @@ export default function RegisterScreen({navigation}) {
       <View style={styles.container}>
         <TextInput
           style={styles.textInput}
-          label="아이디"
+          label="username"
           mode="outlined"
-          value={id}
-          onChangeText={text => setId(text)}
+          value={username}
+          onChangeText={text => setUsername(text)}
         />
-        <TextInput
-          style={styles.textInput}
-          label="비밀번호"
-          mode="outlined"
-          value={password}
-          onChangeText={text => setPassword(text)}
-          secureTextEntry={passwordHide}
-          right={
-            <TextInput.Icon
-              icon="eye"
-              onPress={() => setPasswordHide(!passwordHide)}
-            />
-          }
-        />
-        <View style={styles.textInput}>
-          <TextInput
-            label="비밀번호 확인"
-            mode="outlined"
-            value={checkPassword}
-            onChangeText={text => setCheckPassword(text)}
-            secureTextEntry={passwordHide}
-            right={
-              <TextInput.Icon
-                icon="eye"
-                onPress={() => setPasswordHide(!passwordHide)}
-              />
+        <Card style={styles.cardContainer} onPress={handleImageClick}>
+          <Image
+            style={
+              image === initImageUrl
+                ? styles.defaultCardCover
+                : styles.cardCover
             }
+            source={{uri: image}}
           />
-          {password !== checkPassword && (
-            <Text
-              style={
-                vaildationStyle(password !== checkPassword).vaildationText
-              }>
-              {password !== checkPassword && '비밀번호가 다릅니다.'}
-            </Text>
-          )}
-        </View>
-        <TextInput
-          style={styles.textInput}
-          label="이름"
-          mode="outlined"
-          value={name}
-          onChangeText={text => setName(text)}
-        />
+        </Card>
         <Button
           style={styles.button}
           mode="contained"
           onPress={() => handleRegistration()}>
-          회원가입
+          등록
         </Button>
       </View>
     </>
@@ -114,9 +115,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: theme.colors.elevation.level0,
   },
-  titleText: {
-    fontSize: 24,
+  cardContainer: {
+    height: '80%',
     marginBottom: 16,
+  },
+  cardCover: {
+    height: '100%',
+    resizeMode: 'contain',
+  },
+  defaultCardCover: {
+    height: '100%',
+    resizeMode: 'contain',
+    marginHorizontal: 40,
   },
   textInput: {
     marginHorizontal: 16,

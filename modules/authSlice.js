@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getAsyncData} from '../lib/cookieManager';
+import {getAsyncData} from '../lib/AsyncManager';
 
 const initialState = {
   data: null,

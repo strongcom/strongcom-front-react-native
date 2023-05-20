@@ -3,17 +3,22 @@ import {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 import {setUserInfo} from '../modules/authSlice';
-import {useLoginMutation} from '../api/SpringServer';
+import {
+  useKakaoLoginMutation,
+  useLoginMutation,
+  usePostUsernameMutation,
+} from '../api/SpringServer';
 import {useDispatch} from 'react-redux';
 import theme from '../resources/style/theme';
-import {getAsyncData, setCookieFromResponse} from '../lib/cookieManager';
 import {login, loginWithKakaoAccount} from '@react-native-seoul/kakao-login';
+import AsyncStorage from '@react-native-community/async-storage';
+import {setAsyncData} from '../lib/AsyncManager';
+import {access} from '@babel/core/lib/config/validation/option-assertions';
 
 export default function LoginScreen({navigation}) {
   const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordHide, setPasswordHide] = useState(true);
   const [defaultLogin] = useLoginMutation();
+  const [kakaoLogin] = useKakaoLoginMutation();
   const dispatch = useDispatch();
 
   const showToast = () => {
@@ -24,26 +29,30 @@ export default function LoginScreen({navigation}) {
     });
   };
 
-  const handleLogin = async () => {
-    const {data, error} = await defaultLogin({
-      username: id,
-      password: password,
+  const signInWithKakao = async () => {
+    const token = await loginWithKakaoAccount();
+    const {data, error} = await kakaoLogin({
+      ...token,
+      targetToken: await AsyncStorage.getItem('fcmToken'),
     });
-    dispatch(setUserInfo({data, error}));
     if (error) {
       showToast();
     } else {
-      setCookieFromResponse({cookie: data.cookie});
-      dispatch(getAsyncData('access_token'));
-      // navigation.navigate('Main');
+      if (data) {
+        navigation.navigate('Register', {...token});
+      } else {
+        await setAsyncData('access_token', token.accessToken);
+        await setAsyncData('refresh_token', token.refreshToken);
+        await setAsyncData(
+          'access_token_expires_at',
+          token.accessTokenExpiresAt,
+        );
+        await setAsyncData(
+          'refresh_token_expires_at',
+          token.refreshTokenExpiresAt,
+        );
+      }
     }
-  };
-
-  const signInWithKakao = async () => {
-    const token = await login();
-    console.log(token);
-    console.log('로그인함');
-    console.log(JSON.stringify(token));
   };
 
   return (
@@ -52,39 +61,39 @@ export default function LoginScreen({navigation}) {
         <View style={styles.center}>
           <Text style={styles.titleText}>나가기 전에 생각했나요?</Text>
         </View>
-        <TextInput
-          style={styles.textInput}
-          label="ID"
-          mode="outlined"
-          value={id}
-          onChangeText={text => setId(text)}
-        />
-        <TextInput
-          style={styles.textInput}
-          label="Password"
-          mode="outlined"
-          value={password}
-          onChangeText={text => setPassword(text)}
-          secureTextEntry={passwordHide}
-          right={
-            <TextInput.Icon
-              icon="eye"
-              onPress={() => setPasswordHide(!passwordHide)}
-            />
-          }
-        />
-        <Button
-          style={styles.button}
-          mode="contained"
-          onPress={() => handleLogin()}>
-          로그인
-        </Button>
-        <Button
-          style={styles.button}
-          mode="outlined"
-          onPress={() => navigation.navigate('Register')}>
-          회원가입
-        </Button>
+        {/*<TextInput*/}
+        {/*  style={styles.textInput}*/}
+        {/*  label="ID"*/}
+        {/*  mode="outlined"*/}
+        {/*  value={id}*/}
+        {/*  onChangeText={text => setId(text)}*/}
+        {/*/>*/}
+        {/*<TextInput*/}
+        {/*  style={styles.textInput}*/}
+        {/*  label="Password"*/}
+        {/*  mode="outlined"*/}
+        {/*  value={password}*/}
+        {/*  onChangeText={text => setPassword(text)}*/}
+        {/*  secureTextEntry={passwordHide}*/}
+        {/*  right={*/}
+        {/*    <TextInput.Icon*/}
+        {/*      icon="eye"*/}
+        {/*      onPress={() => setPasswordHide(!passwordHide)}*/}
+        {/*    />*/}
+        {/*  }*/}
+        {/*/>*/}
+        {/*<Button*/}
+        {/*  style={styles.button}*/}
+        {/*  mode="contained"*/}
+        {/*  onPress={() => handleLogin()}>*/}
+        {/*  로그인*/}
+        {/*</Button>*/}
+        {/*<Button*/}
+        {/*  style={styles.button}*/}
+        {/*  mode="outlined"*/}
+        {/*  onPress={() => navigation.navigate('Register')}>*/}
+        {/*  회원가입*/}
+        {/*</Button>*/}
         <Button
           style={styles.button}
           mode="outlined"

@@ -35,6 +35,26 @@ export const SpringServer = createApi({
       },
       invalidatesTags: (result, error, arg) => [{type: 'Reminder'}],
     }),
+    kakaoLogin: builder.mutation({
+      query: body => {
+        return {
+          url: server.kakao,
+          method: 'POST',
+          body: body,
+        };
+      },
+    }),
+    postUsername: builder.mutation({
+      query: username => {
+        return {
+          url: server.postUsername,
+          method: 'POST',
+          body: {
+            username: username,
+          },
+        };
+      },
+    }),
     registerUser: builder.mutation({
       query: ({...body}) => {
         return {
@@ -68,4 +88,6 @@ export const {
   usePostReminderMutation,
   useRegisterUserMutation,
   useLoginMutation,
+  useKakaoLoginMutation,
+  usePostUsernameMutation,
 } = SpringServer;
