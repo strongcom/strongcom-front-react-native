@@ -4,6 +4,7 @@ import theme from '../resources/style/theme';
 import {useState} from 'react';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {usePostImageMutation} from '../api/FlaskServer';
+import showToast from '../lib/showToast';
 
 export default function ImageAddScreen() {
   const initImageUrl =
@@ -25,14 +26,27 @@ export default function ImageAddScreen() {
   const handleImageClick = () => {
     launchImageLibrary(options, response => {
       if (response.error) {
-        console.log('LaunchImageLibrary Error: ', response.error);
-      } else {
-        console.log(response?.assets[0].uri);
-        setImage(response?.assets[0].uri);
-        setType(response?.assets[0].type);
-        setName(response?.assets[0].fileName);
+        showToast({
+          type: 'error',
+          text1: '갤러리 불러오기 오류 발생',
+          text2: response.error,
+        });
       }
-    }).then(r => console.log('successfully'));
+    })
+      .then(response => {
+        setImage(response?.assets[0]?.uri);
+        setType(response?.assets[0]?.type);
+        setName(response?.assets[0]?.fileName);
+      })
+      .catch(e => {
+        if (!name) {
+          showToast({
+            type: 'error',
+            text1: '이미지를 선택해주세요',
+            text2: e,
+          });
+        }
+      });
   };
 
   const handlePostImage = async () => {

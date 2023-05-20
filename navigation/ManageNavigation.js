@@ -93,7 +93,12 @@ export default function ManageNavigation({}) {
             <Stack.Screen
               name="Register"
               component={RegisterScreen}
-              options={{title: '추가 정보 등록'}}
+              options={{title: '유저 네임 등록'}}
+            />
+            <Stack.Screen
+              name="ImageAdd"
+              component={ImageAddScreen}
+              options={{title: '이미지 등록'}}
             />
             {/*<Stack.Screen*/}
             {/*  name="Register"*/}
