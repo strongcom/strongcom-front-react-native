@@ -47,6 +47,7 @@ export default function LoginScreen({navigation}) {
         dispatch(getAsyncData('refresh_token'));
       }
     }
+    료;
   };
 
   return (
