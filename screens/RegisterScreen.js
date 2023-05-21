@@ -1,11 +1,17 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {usePostUsernameMutation} from '../api/SpringServer';
 import theme from '../resources/style/theme';
 import showToast from '../lib/showToast';
+import {getAsyncData, setAsyncData} from '../lib/AsyncManager';
+import {useDispatch} from 'react-redux';
+import {setImageInput} from '../modules/inputStateSlice';
 
-export default function RegisterScreen({navigation}) {
+export default function RegisterScreen({navigation, route}) {
+  const {refreshToken, accessTokenExpiresAt, refreshTokenExpiresAt} =
+    route.params;
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [postUsername] = usePostUsernameMutation();
 
@@ -18,7 +24,10 @@ export default function RegisterScreen({navigation}) {
         text2: error,
       });
     } else {
-      navigation.navigate('ImageAdd', {username: username});
+      await setAsyncData('refresh_token', refreshToken);
+      await setAsyncData('access_token_expires_at', accessTokenExpiresAt);
+      await setAsyncData('refresh_token_expires_at', refreshTokenExpiresAt);
+      dispatch(getAsyncData('refresh_token'));
     }
   };
 

@@ -3,6 +3,7 @@ export const nodeServer = {
   baseUrl: 'http://10.0.2.2:8080/api/',
   getReminder: filter => `reminder/${filter}`,
   getReminderById: id => `reminder/${id}`,
+  getUserInfo: '/auth/userinfo',
   postReminder: 'reminder',
   patchReminder: id => `reminder/${id}`,
   registerUser: 'auth/register',

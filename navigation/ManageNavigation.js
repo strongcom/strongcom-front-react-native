@@ -14,6 +14,7 @@ import ImageAddScreen from '../screens/ImageAddScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import {useDispatch, useSelector} from 'react-redux';
+import {setImageInput} from '../modules/inputStateSlice';
 
 export default function ManageNavigation({}) {
   const Stack = createNativeStackNavigator();
@@ -22,16 +23,11 @@ export default function ManageNavigation({}) {
   const data = useSelector(state => state.auth.data);
   const loading = useSelector(state => state.auth.loading);
   const error = useSelector(state => state.auth.error);
+  const imageInput = useSelector(state => state.inputState.imageInput);
 
   useEffect(() => {
-    dispatch(getAsyncData('access_token'));
-  }, [data]);
-
-  // useEffect(() => {
-  //   console.log('data', data);
-  //   console.log('loading', loading);
-  //   console.log('error', error);
-  // }, [data, loading, error]);
+    dispatch(getAsyncData('refresh_token'));
+  }, [data, dispatch]);
 
   const getHeaderTitleInTabNav = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -59,30 +55,38 @@ export default function ManageNavigation({}) {
           },
         }}>
         {data ? (
-          <>
+          imageInput ? (
+            <>
+              <Stack.Screen
+                name="Main"
+                component={TabNavigator}
+                options={({route}) => ({
+                  title: getHeaderTitleInTabNav(route),
+                })}
+              />
+              <Stack.Screen
+                name="Add"
+                component={AddScreen}
+                options={{title: '리마인더 추가'}}
+              />
+              <Stack.Screen
+                name="Repetition"
+                component={RepetitionScreen}
+                options={{title: '반복 설정'}}
+              />
+              <Stack.Screen
+                name="ImageAdd"
+                component={ImageAddScreen}
+                options={{title: '이미지 추가등록'}}
+              />
+            </>
+          ) : (
             <Stack.Screen
-              name="Main"
-              component={TabNavigator}
-              options={({route}) => ({
-                title: getHeaderTitleInTabNav(route),
-              })}
-            />
-            <Stack.Screen
-              name="Add"
-              component={AddScreen}
-              options={{title: '리마인더 추가'}}
-            />
-            <Stack.Screen
-              name="Repetition"
-              component={RepetitionScreen}
-              options={{title: '반복 설정'}}
-            />
-            <Stack.Screen
-              name="ImageAdd"
+              name="ImageAddInit"
               component={ImageAddScreen}
-              options={{title: '이미지 추가등록'}}
+              options={{title: '이미지 등록'}}
             />
-          </>
+          )
         ) : (
           <>
             <Stack.Screen
@@ -95,16 +99,6 @@ export default function ManageNavigation({}) {
               component={RegisterScreen}
               options={{title: '유저 네임 등록'}}
             />
-            <Stack.Screen
-              name="ImageAdd"
-              component={ImageAddScreen}
-              options={{title: '이미지 등록'}}
-            />
-            {/*<Stack.Screen*/}
-            {/*  name="Register"*/}
-            {/*  component={RegisterScreen}*/}
-            {/*  options={{title: '회원가입'}}*/}
-            {/*/>*/}
           </>
         )}
       </Stack.Navigator>

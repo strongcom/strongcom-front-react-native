@@ -1,10 +1,17 @@
 import {Image, StyleSheet, View} from 'react-native';
-import {Button, Card} from 'react-native-paper';
+import {Button, Card, Text} from 'react-native-paper';
 import theme from '../resources/style/theme';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {usePostImageMutation} from '../api/FlaskServer';
 import showToast from '../lib/showToast';
+import {
+  useGetReminderListQuery,
+  useGetUserInfoQuery,
+} from '../api/SpringServer';
+import {getAsyncData, setAsyncData} from '../lib/AsyncManager';
+import {useDispatch} from 'react-redux';
+import {setImageInput} from '../modules/inputStateSlice';
 
 export default function ImageAddScreen() {
   const initImageUrl =
@@ -22,6 +29,8 @@ export default function ImageAddScreen() {
   const [type, setType] = useState('image/jpeg');
   const [name, setName] = useState('title');
   const [postImage] = usePostImageMutation();
+  const {data, error, isLoading} = useGetUserInfoQuery();
+  const dispatch = useDispatch();
 
   const handleImageClick = () => {
     launchImageLibrary(options, response => {
@@ -50,16 +59,32 @@ export default function ImageAddScreen() {
   };
 
   const handlePostImage = async () => {
-    const form = new FormData();
-    form.append('file', {
-      uri: image,
-      type: type,
-      name: name,
-    });
-    form.append('userid', 'ksumin');
-    const request = await postImage(form);
-    console.log(request);
+    try {
+      const form = new FormData();
+      form.append('file', {
+        uri: image,
+        type: type,
+        name: name,
+      });
+      form.append('userid', data.username);
+      const {data, error} = await postImage(form);
+      // TODO 서버 연결되면 아래 코드 실행하기
+      // await setAsyncData('image_input', image);
+      // dispatch(getAsyncData('image_input'));
+    } catch (e) {
+      showToast({type: 'error', text1: '이미지 등록 오류', text2: e});
+    } finally {
+      // TODO 서버 연결 전에는 플로우를 위해 finally 사용
+      dispatch(setImageInput(true));
+    }
   };
+
+  if (isLoading) {
+    return <Text>{'로딩중'}</Text>;
+  }
+  if (error) {
+    return <Text>{error.message}</Text>;
+  }
 
   return (
     <View style={styles.container}>

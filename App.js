@@ -16,6 +16,7 @@ import {
 } from './lib/pushNotificationManager';
 import {FlaskServer} from './api/FlaskServer';
 import {logger} from 'redux-logger/src';
+import AsyncStorage from '@react-native-community/async-storage';
 
 registerTranslation('ko', ko);
 
@@ -33,7 +34,7 @@ const store = configureStore({
 function App() {
   useEffect(() => {
     requestUserPermission().then(r => NotificationListener());
-    // AsyncStorage.removeItem('access_token');
+    // AsyncStorage.clear();
   }, []);
 
   return (

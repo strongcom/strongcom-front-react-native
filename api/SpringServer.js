@@ -9,7 +9,7 @@ export const SpringServer = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: server.baseUrl,
     prepareHeaders: async headers => {
-      headers.set('Cookie', await AsyncStorage.getItem('access_token'));
+      headers.set('Access_Token', await AsyncStorage.getItem('access_token'));
       return headers;
     },
   }),
@@ -55,6 +55,9 @@ export const SpringServer = createApi({
         };
       },
     }),
+    getUserInfo: builder.query({
+      query: () => server.getUserInfo,
+    }),
     registerUser: builder.mutation({
       query: ({...body}) => {
         return {
@@ -86,8 +89,8 @@ export const {
   useGetReminderListQuery,
   useGetReminderByIdQuery,
   usePostReminderMutation,
+  useGetUserInfoQuery,
   useRegisterUserMutation,
-  useLoginMutation,
   useKakaoLoginMutation,
   usePostUsernameMutation,
 } = SpringServer;

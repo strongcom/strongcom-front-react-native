@@ -7,11 +7,10 @@ import {useDispatch} from 'react-redux';
 
 export default function SettingList({navigation}) {
   const dispatch = useDispatch();
-  //todo: 로그인 화면으로 넘어갔을 때 앱바 뒤로가기 비활성화하기
   const handleLogout = async () => {
-    await AsyncStorage.removeItem('access_token').then(() => {
+    await AsyncStorage.removeItem('refresh_token').then(() => {
       // navigation.navigate('Main');
-      dispatch(getAsyncData('access_token'));
+      dispatch(getAsyncData('refresh_token'));
     });
   };
 

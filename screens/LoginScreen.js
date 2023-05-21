@@ -1,23 +1,15 @@
-import {Button, TextInput} from 'react-native-paper';
-import {useState} from 'react';
+import {Button} from 'react-native-paper';
 import {StyleSheet, Text, View} from 'react-native';
 import Toast from 'react-native-toast-message';
-import {setUserInfo} from '../modules/authSlice';
-import {
-  useKakaoLoginMutation,
-  useLoginMutation,
-  usePostUsernameMutation,
-} from '../api/SpringServer';
-import {useDispatch} from 'react-redux';
+import {useKakaoLoginMutation} from '../api/SpringServer';
 import theme from '../resources/style/theme';
 import {login, loginWithKakaoAccount} from '@react-native-seoul/kakao-login';
 import AsyncStorage from '@react-native-community/async-storage';
 import {setAsyncData} from '../lib/AsyncManager';
-import {access} from '@babel/core/lib/config/validation/option-assertions';
+import {setImageInput} from '../modules/inputStateSlice';
+import {useDispatch} from 'react-redux';
 
 export default function LoginScreen({navigation}) {
-  const [id, setId] = useState('');
-  const [defaultLogin] = useLoginMutation();
   const [kakaoLogin] = useKakaoLoginMutation();
   const dispatch = useDispatch();
 
@@ -38,10 +30,11 @@ export default function LoginScreen({navigation}) {
     if (error) {
       showToast();
     } else {
+      await setAsyncData('access_token', token.accessToken);
       if (data) {
+        dispatch(setImageInput(false));
         navigation.navigate('Register', {...token});
       } else {
-        await setAsyncData('access_token', token.accessToken);
         await setAsyncData('refresh_token', token.refreshToken);
         await setAsyncData(
           'access_token_expires_at',
@@ -61,39 +54,6 @@ export default function LoginScreen({navigation}) {
         <View style={styles.center}>
           <Text style={styles.titleText}>나가기 전에 생각했나요?</Text>
         </View>
-        {/*<TextInput*/}
-        {/*  style={styles.textInput}*/}
-        {/*  label="ID"*/}
-        {/*  mode="outlined"*/}
-        {/*  value={id}*/}
-        {/*  onChangeText={text => setId(text)}*/}
-        {/*/>*/}
-        {/*<TextInput*/}
-        {/*  style={styles.textInput}*/}
-        {/*  label="Password"*/}
-        {/*  mode="outlined"*/}
-        {/*  value={password}*/}
-        {/*  onChangeText={text => setPassword(text)}*/}
-        {/*  secureTextEntry={passwordHide}*/}
-        {/*  right={*/}
-        {/*    <TextInput.Icon*/}
-        {/*      icon="eye"*/}
-        {/*      onPress={() => setPasswordHide(!passwordHide)}*/}
-        {/*    />*/}
-        {/*  }*/}
-        {/*/>*/}
-        {/*<Button*/}
-        {/*  style={styles.button}*/}
-        {/*  mode="contained"*/}
-        {/*  onPress={() => handleLogin()}>*/}
-        {/*  로그인*/}
-        {/*</Button>*/}
-        {/*<Button*/}
-        {/*  style={styles.button}*/}
-        {/*  mode="outlined"*/}
-        {/*  onPress={() => navigation.navigate('Register')}>*/}
-        {/*  회원가입*/}
-        {/*</Button>*/}
         <Button
           style={styles.button}
           mode="outlined"

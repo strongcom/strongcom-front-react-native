@@ -4,6 +4,7 @@ const initialState = {
   dateToggle: false,
   timeToggle: false,
   selectModToggle: false,
+  imageInput: true,
 };
 
 export const inputStateSlice = createSlice({
@@ -23,6 +24,10 @@ export const inputStateSlice = createSlice({
     setSelectModToggle: (state, action) => {
       state.selectModToggle = action.payload;
     },
+    setImageInput: (state, action) => {
+      console.log('dispatch?????????');
+      state.imageInput = action.payload;
+    },
   },
 });
 
@@ -31,4 +36,5 @@ export const {
   timeToggleInput,
   initAddPageToggleState,
   setSelectModToggle,
+  setImageInput,
 } = inputStateSlice.actions;
