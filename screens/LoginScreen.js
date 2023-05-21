@@ -5,7 +5,7 @@ import {useKakaoLoginMutation} from '../api/SpringServer';
 import theme from '../resources/style/theme';
 import {login, loginWithKakaoAccount} from '@react-native-seoul/kakao-login';
 import AsyncStorage from '@react-native-community/async-storage';
-import {setAsyncData} from '../lib/AsyncManager';
+import {getAsyncData, setAsyncData} from '../lib/AsyncManager';
 import {setImageInput} from '../modules/inputStateSlice';
 import {useDispatch} from 'react-redux';
 
@@ -44,6 +44,7 @@ export default function LoginScreen({navigation}) {
           'refresh_token_expires_at',
           token.refreshTokenExpiresAt,
         );
+        dispatch(getAsyncData('refresh_token'));
       }
     }
   };
