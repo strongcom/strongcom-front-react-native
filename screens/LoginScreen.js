@@ -1,5 +1,5 @@
 import {Button} from 'react-native-paper';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 import {useKakaoLoginMutation} from '../api/SpringServer';
 import theme from '../resources/style/theme';
@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {getAsyncData, setAsyncData} from '../lib/AsyncManager';
 import {setImageInput} from '../modules/inputStateSlice';
 import {useDispatch} from 'react-redux';
+import SplashImage from '../resources/images/splash.png';
 
 export default function LoginScreen({navigation}) {
   const [kakaoLogin] = useKakaoLoginMutation();
@@ -22,6 +23,7 @@ export default function LoginScreen({navigation}) {
   };
 
   const signInWithKakao = async () => {
+    // const token = await login();
     const token = await loginWithKakaoAccount();
     const {data, error} = await kakaoLogin({
       ...token,
@@ -47,12 +49,16 @@ export default function LoginScreen({navigation}) {
         dispatch(getAsyncData('refresh_token'));
       }
     }
-    료;
   };
 
   return (
     <>
       <View style={styles.container}>
+        <Image
+          source={SplashImage}
+          style={styles.image}
+          resizeMode={'contain'}
+        />
         <View style={styles.center}>
           <Text style={styles.titleText}>나가기 전에 생각했나요?</Text>
         </View>
@@ -73,6 +79,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: theme.colors.elevation.level0,
     marginHorizontal: 16,
   },
@@ -83,7 +90,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 24,
-    marginBottom: 8,
+    mar기ginBottom: 8,
   },
   textInput: {
     marginHorizontal: 16,
@@ -92,5 +99,8 @@ const styles = StyleSheet.create({
   button: {
     marginHorizontal: 16,
     marginVertical: 8,
+  },
+  image: {
+    height: '40%',
   },
 });

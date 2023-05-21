@@ -46,6 +46,9 @@ export default function ManageNavigation({}) {
   if (error) {
     return <Text>{error.message}</Text>;
   }
+  // if (data) {
+  //   return <SplashScreen />;
+  // }
 
   return (
     <NavigationContainer>

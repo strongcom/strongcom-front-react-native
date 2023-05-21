@@ -6,7 +6,9 @@ export default function SplashScreen() {
   return (
     <View style={styles.container}>
       <Image source={SplashImage} style={styles.image} resizeMode={'contain'} />
-      <Text variant={'displaySmall'}>나가기 전에 생각했나요?</Text>
+      <Text variant={'headlineMedium'} style={styles.text}>
+        나가기 전에 생각했나요?
+      </Text>
     </View>
   );
 }
@@ -19,7 +21,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    height: '45%',
+    height: '40%',
     marginBottom: 24,
+  },
+  text: {
+    fontWeight: 'bold',
   },
 });
