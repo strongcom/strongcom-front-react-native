@@ -16,8 +16,11 @@ export const springServer = {
   baseUrl: 'https://spring.milk717.com/',
   getReminder: filter => `reminder/${filter}`,
   getReminderById: id => `reminder/${id}`,
+  getUserInfo: 'user',
   postReminder: 'reminder',
   patchReminder: id => `reminder/${id}`,
   registerUser: 'user/add',
   login: 'signin',
+  kakao: 'kakao/add',
+  postUsername: 'kakao/user',
 };

@@ -51,8 +51,11 @@ export default function AddScreen({navigation, route}) {
   }, [route.params?.id, data]);
 
   const handleSubmit = async () => {
+    console.log(reminder);
     const {data, error} = await postReminder({
       ...reminder,
+      startTime: reminder.startTime.slice(0, -3),
+      endTime: reminder.endTime.slice(0, -3),
       repetitionDay: reminder.repetitionDay.join(' '),
     });
     console.log(data, error);

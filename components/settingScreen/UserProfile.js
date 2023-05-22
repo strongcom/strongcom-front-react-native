@@ -7,14 +7,18 @@ export default function UserProfile() {
   return (
     <>
       <View style={styles.userAgent}>
-        <Avatar
-          size={100}
-          image={{
-            uri: 'https://blog.kakaocdn.net/dn/bAiTQP/btquRcLlEU9/soHQmOD9kzfvNT2v5WXSF1/img.jpg',
-          }}
-        />
+        {/*<Avatar*/}
+        {/*  size={100}*/}
+        {/*  image={{*/}
+        {/*    uri: 'https://blog.kakaocdn.net/dn/bAiTQP/btquRcLlEU9/soHQmOD9kzfvNT2v5WXSF1/img.jpg',*/}
+        {/*  }}*/}
+        {/*/>*/}
         <Text style={styles.userName}>
-          {isLoading ? '로딩중...' : error ? error.message : data.nickname}
+          ID: {isLoading ? '로딩중...' : error ? error.message : data.userName}
+        </Text>
+        <Text style={styles.userName}>
+          닉네임:{' '}
+          {isLoading ? '로딩중...' : error ? error.message : data.nickName}
         </Text>
       </View>
     </>

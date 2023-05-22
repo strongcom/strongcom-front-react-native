@@ -54,7 +54,6 @@ export default function TaskList({
             <Chip mode="flat" icon="cancel" onPress={handleCheckModCancel}>
               취소
             </Chip>
-            기
             <Chip mode="flat" icon="delete" onPress={handleDelete}>
               체크된 항목 삭제
             </Chip>

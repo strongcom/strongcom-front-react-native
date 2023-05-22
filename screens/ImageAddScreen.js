@@ -66,7 +66,7 @@ export default function ImageAddScreen() {
         type: type,
         name: name,
       });
-      form.append('userid', data.username);
+      form.append('userid', data.userName);
       const {data, error} = await postImage(form);
       // TODO 서버 연결되면 아래 코드 실행하기
       // await setAsyncData('image_input', image);

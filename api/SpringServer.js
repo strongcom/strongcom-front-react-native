@@ -1,15 +1,19 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import AsyncStorage from '@react-native-community/async-storage';
-import {nodeServer} from '../resources/serverInfo';
+import {nodeServer, springServer} from '../resources/serverInfo';
 
-const server = nodeServer;
+// const server = nodeServer;
+const server = springServer;
 
 export const SpringServer = createApi({
   reducerPath: 'SpringServer',
   baseQuery: fetchBaseQuery({
     baseUrl: server.baseUrl,
     prepareHeaders: async headers => {
-      headers.set('Access_Token', await AsyncStorage.getItem('access_token'));
+      const accessToken = await AsyncStorage.getItem('access_token');
+      headers.set('Access_Token', accessToken);
+      headers.set('Authorization', accessToken);
+      console.log('Authorization', accessToken);
       return headers;
     },
   }),
@@ -41,6 +45,7 @@ export const SpringServer = createApi({
           url: server.kakao,
           method: 'POST',
           body: body,
+          responseHandler: response => response.text(),
         };
       },
     }),
@@ -48,10 +53,12 @@ export const SpringServer = createApi({
       query: username => {
         return {
           url: server.postUsername,
-          method: 'POST',
+          method: 'PATCH',
           body: {
-            username: username,
+            // username: username,
+            userName: username,
           },
+          responseHandler: response => response.text(),
         };
       },
     }),
