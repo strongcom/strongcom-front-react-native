@@ -6,8 +6,8 @@ const initialState = {
   content: null,
   startDate: dayjs().format('YYYY-MM-DD'),
   endDate: dayjs().format('YYYY-MM-DD'),
-  startTime: dayjs().format('HH:mm:ss'),
-  endTime: dayjs().format('HH:mm:ss'),
+  startTime: '00:00:00',
+  endTime: '23:59:59',
   repetitionPeriod: 'BASIC',
   repetitionDay: [],
 };
