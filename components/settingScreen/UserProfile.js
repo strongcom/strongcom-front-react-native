@@ -1,7 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {Avatar} from '@react-native-material/core';
+import {useGetUserInfoQuery} from '../../api/SpringServer';
 
 export default function UserProfile() {
+  const {data, error, isLoading} = useGetUserInfoQuery();
   return (
     <>
       <View style={styles.userAgent}>
@@ -11,7 +13,9 @@ export default function UserProfile() {
             uri: 'https://blog.kakaocdn.net/dn/bAiTQP/btquRcLlEU9/soHQmOD9kzfvNT2v5WXSF1/img.jpg',
           }}
         />
-        <Text style={styles.userName}>괴도키드</Text>
+        <Text style={styles.userName}>
+          {isLoading ? '로딩중...' : error ? error.message : data.nickname}
+        </Text>
       </View>
     </>
   );
