@@ -10,10 +10,11 @@ export const SpringServer = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: server.baseUrl,
     prepareHeaders: async headers => {
-      const accessToken = await AsyncStorage.getItem('access_token');
-      headers.set('Access_Token', accessToken);
-      headers.set('Authorization', accessToken);
-      console.log('Authorization', accessToken);
+      await AsyncStorage.getItem('access_token').then(accessToken => {
+        headers.set('Access_Token', `Bearer ${accessToken}`);
+        headers.set('Authorization', `Bearer ${accessToken}`);
+        console.log('Authorization', `Bearer ${accessToken}`);
+      });
       return headers;
     },
   }),
@@ -35,6 +36,15 @@ export const SpringServer = createApi({
           url: server.postReminder,
           method: 'POST',
           body: body,
+        };
+      },
+      invalidatesTags: (result, error, arg) => [{type: 'Reminder'}],
+    }),
+    deleteReminder: builder.mutation({
+      query: id => {
+        return {
+          url: server.deleteReminder(id),
+          method: 'DELETE',
         };
       },
       invalidatesTags: (result, error, arg) => [{type: 'Reminder'}],
@@ -96,6 +106,7 @@ export const {
   useGetReminderListQuery,
   useGetReminderByIdQuery,
   usePostReminderMutation,
+  useDeleteReminderMutation,
   useGetUserInfoQuery,
   useRegisterUserMutation,
   useKakaoLoginMutation,

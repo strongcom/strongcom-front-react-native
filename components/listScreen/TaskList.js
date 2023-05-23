@@ -3,6 +3,7 @@ import {Chip, Divider, List, Text} from 'react-native-paper';
 import theme from '../../resources/style/theme';
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
+import {useDeleteReminderMutation} from '../../api/SpringServer';
 
 export default function TaskList({
   title = '전체 리마인더',
@@ -13,6 +14,7 @@ export default function TaskList({
   const navigation = useNavigation();
   const [selectAllToggle, setSelectAllToggle] = useState(false);
   const [checkedItemIdList, setCheckedItemIdList] = useState([]);
+  const [deleteReminder] = useDeleteReminderMutation();
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -23,12 +25,10 @@ export default function TaskList({
 
   const handleCheckBox = id => {
     if (checkedItemIdList.includes(id)) {
-      console.log(id);
-      checkedItemIdList.filter(v => v !== id);
+      setCheckedItemIdList(checkedItemIdList.filter(v => v !== id));
     } else {
       setCheckedItemIdList(prev => [...new Set(prev).add(id)]);
     }
-    console.log(checkedItemIdList);
   };
 
   const handleLongPress = id => {
@@ -41,8 +41,11 @@ export default function TaskList({
     setCheckedItemIdList([]);
   };
 
-  const handleDelete = () => {
-    console.log(checkedItemIdList);
+  const handleDelete = async () => {
+    for (const id of checkedItemIdList) {
+      await deleteReminder(id);
+    }
+    setSelectAllToggle(false);
   };
 
   return (
@@ -66,21 +69,26 @@ export default function TaskList({
         ItemSeparatorComponent={() => <Divider />}
         renderItem={({item}) => (
           <List.Item
-            style={selectAllToggle && styles.checkedItem}
+            style={
+              checkedItemIdList.includes(item?.reminderId) && styles.checkedItem
+            }
             title={item?.title}
             description={item?.subTitle}
             onPress={() =>
               selectAllToggle
-                ? handleCheckBox(item.id)
-                : navigation.navigate({name: 'Add', params: {id: item.id}})
+                ? handleCheckBox(item.reminderId)
+                : navigation.navigate({
+                    name: 'Add',
+                    params: {id: item.reminderId},
+                  })
             }
-            onLongPress={() => handleLongPress(item.id)}
+            onLongPress={() => handleLongPress(item.reminderId)}
             left={() => (
               <List.Icon
                 style={styles.listLeft}
                 color={theme.colors.primary}
                 icon={
-                  checkedItemIdList.includes(item.id)
+                  checkedItemIdList.includes(item.reminderId)
                     ? 'check-bold'
                     : 'reminder'
                 }

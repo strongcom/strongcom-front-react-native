@@ -18,6 +18,7 @@ export const springServer = {
   getReminderById: id => `reminder/${id}`,
   getUserInfo: 'user',
   postReminder: 'reminder',
+  deleteReminder: id => `reminder/${id}`,
   patchReminder: id => `reminder/${id}`,
   registerUser: 'user/add',
   login: 'signin',

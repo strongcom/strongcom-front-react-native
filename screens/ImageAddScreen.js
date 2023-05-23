@@ -29,7 +29,7 @@ export default function ImageAddScreen() {
   const [type, setType] = useState('image/jpeg');
   const [name, setName] = useState('title');
   const [postImage] = usePostImageMutation();
-  const {data, error, isLoading} = useGetUserInfoQuery();
+  const {data: userInfo, error, isLoading} = useGetUserInfoQuery();
   const dispatch = useDispatch();
 
   const handleImageClick = () => {
@@ -66,11 +66,12 @@ export default function ImageAddScreen() {
         type: type,
         name: name,
       });
-      form.append('userid', data.userName);
-      const {data, error} = await postImage(form);
+      console.log(userInfo);
+      form.append('userid', userInfo.userName || 'ksumin');
+      await postImage(form);
       // TODO 서버 연결되면 아래 코드 실행하기
-      // await setAsyncData('image_input', image);
-      // dispatch(getAsyncData('image_input'));
+      await setAsyncData('image_input', image);
+      dispatch(getAsyncData('image_input'));
     } catch (e) {
       showToast({type: 'error', text1: '이미지 등록 오류', text2: e});
     } finally {

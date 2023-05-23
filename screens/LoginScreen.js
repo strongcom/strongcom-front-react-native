@@ -23,16 +23,22 @@ export default function LoginScreen({navigation}) {
   };
 
   const signInWithKakao = async () => {
-    // const token = await login();
-    const token = await loginWithKakaoAccount();
+    const token = await login()
+      // const token = await loginWithKakaoAccount()
+      .then(async response => {
+        await setAsyncData('access_token', response.accessToken);
+        return response;
+      })
+      .catch(e => showToast());
+    console.log(await AsyncStorage.getItem('fcmToken'));
     const {data, error} = await kakaoLogin({
       ...token,
+      accessToken: `Bearer ${token.accessToken}`,
       targetToken: await AsyncStorage.getItem('fcmToken'),
     });
     if (error) {
       showToast();
     } else {
-      await setAsyncData('access_token', token.accessToken);
       if (data) {
         dispatch(setImageInput(false));
         navigation.navigate('Register', {...token});
@@ -90,7 +96,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 24,
-    mar기ginBottom: 8,
+    marginBottom: 8,
   },
   textInput: {
     marginHorizontal: 16,

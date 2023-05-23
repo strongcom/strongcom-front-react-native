@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-const baseUrl = 'http://192.168.0.28:13330/';
+const baseUrl = 'http://210.111.190.189:13330/';
 
 export const FlaskServer = createApi({
   reducerPath: 'FlaskServer',
@@ -15,6 +15,7 @@ export const FlaskServer = createApi({
             'Content-Type': 'multipart/form-data',
           },
           body: form,
+          responseHandler: response => response.text(),
         };
       },
     }),
