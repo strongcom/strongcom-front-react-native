@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, RefreshControl, StyleSheet, View} from 'react-native';
 import {Chip, Divider, List, Text} from 'react-native-paper';
 import theme from '../../resources/style/theme';
 import {useNavigation} from '@react-navigation/native';
@@ -10,6 +10,8 @@ export default function TaskList({
   data,
   error,
   isLoading,
+  refreshing,
+  onRefresh,
 }) {
   const navigation = useNavigation();
   const [selectAllToggle, setSelectAllToggle] = useState(false);
@@ -49,7 +51,7 @@ export default function TaskList({
   };
 
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
         {selectAllToggle ? (
@@ -67,6 +69,9 @@ export default function TaskList({
         style={styles.list}
         data={data}
         ItemSeparatorComponent={() => <Divider />}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         renderItem={({item}) => (
           <List.Item
             style={
@@ -96,13 +101,16 @@ export default function TaskList({
             )}
           />
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.reminderId}
       />
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   list: {
     marginHorizontal: 16,
     flex: 0.9,

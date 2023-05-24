@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../resources/style/theme';
@@ -35,32 +36,30 @@ export default function ListScreen({navigation}) {
   }, [isFetching]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        <TaskList data={data} error={error} isLoading={isLoading} filter={''} />
-        <AnimatedFAB
-          icon={() => <Icon name="add" size={24} color={'black'} />}
-          label={'Label'}
-          extended={false}
-          onPress={() => navigation.navigate('Add')}
-          iconMode={'static'}
-          style={styles.fabStyle}
-        />
-      </ScrollView>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <TaskList
+        data={data}
+        error={error}
+        isLoading={isLoading}
+        filter={''}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
+      <AnimatedFAB
+        icon={() => <Icon name="add" size={24} color={'black'} />}
+        label={'Label'}
+        extended={false}
+        onPress={() => navigation.navigate('Add')}
+        iconMode={'static'}
+        style={styles.fabStyle}
+      />
+    </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.elevation.level0,
-  },
-  scrollView: {
-    flex: 1,
   },
   fabStyle: {
     bottom: 16,
