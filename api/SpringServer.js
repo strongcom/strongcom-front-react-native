@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import AsyncStorage from '@react-native-community/async-storage';
-import {nodeServer, springServer} from '../resources/serverInfo';
+import {springServer} from '../resources/serverInfo';
 
 // const server = nodeServer;
 const server = springServer;

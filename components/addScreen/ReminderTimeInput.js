@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {timeToggleInput} from '../../modules/inputStateSlice';
 import {StyleSheet, View} from 'react-native';
 import {TimePickerModal} from 'react-native-paper-dates';
-import {Surface, Button, Text, Switch} from 'react-native-paper';
+import {Button, Surface, Switch, Text} from 'react-native-paper';
 import {endTimeInput, startTimeInput} from '../../modules/reminderSlice';
 import dayjs from 'dayjs';
 

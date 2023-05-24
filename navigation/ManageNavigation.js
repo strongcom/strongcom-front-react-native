@@ -14,7 +14,6 @@ import ImageAddScreen from '../screens/ImageAddScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import {useDispatch, useSelector} from 'react-redux';
-import {setImageInput} from '../modules/inputStateSlice';
 import SplashScreen from '../screens/SplashScreen';
 
 export default function ManageNavigation({}) {

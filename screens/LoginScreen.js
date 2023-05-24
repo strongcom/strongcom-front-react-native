@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 import {useKakaoLoginMutation} from '../api/SpringServer';
 import theme from '../resources/style/theme';
-import {login, loginWithKakaoAccount} from '@react-native-seoul/kakao-login';
+import {login} from '@react-native-seoul/kakao-login';
 import AsyncStorage from '@react-native-community/async-storage';
 import {getAsyncData, setAsyncData} from '../lib/AsyncManager';
 import {setImageInput} from '../modules/inputStateSlice';

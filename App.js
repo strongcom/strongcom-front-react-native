@@ -16,7 +16,6 @@ import {
 } from './lib/pushNotificationManager';
 import {FlaskServer} from './api/FlaskServer';
 import {logger} from 'redux-logger/src';
-import AsyncStorage from '@react-native-community/async-storage';
 
 registerTranslation('ko', ko);
 

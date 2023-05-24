@@ -1,14 +1,11 @@
 import {Image, StyleSheet, View} from 'react-native';
 import {Button, Card, Text} from 'react-native-paper';
 import theme from '../resources/style/theme';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {usePostImageMutation} from '../api/FlaskServer';
 import showToast from '../lib/showToast';
-import {
-  useGetReminderListQuery,
-  useGetUserInfoQuery,
-} from '../api/SpringServer';
+import {useGetUserInfoQuery} from '../api/SpringServer';
 import {getAsyncData, setAsyncData} from '../lib/AsyncManager';
 import {useDispatch} from 'react-redux';
 import {setImageInput} from '../modules/inputStateSlice';

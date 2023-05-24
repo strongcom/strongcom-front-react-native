@@ -1,4 +1,4 @@
-import {Image, View, StyleSheet} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import SplashImage from '../resources/images/splash.png';
 

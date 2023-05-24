@@ -5,17 +5,8 @@ import {StyleSheet, View} from 'react-native';
 import {DatePickerModal} from 'react-native-paper-dates';
 import {endDateInput, startDateInput} from '../../modules/reminderSlice';
 import dayjs from 'dayjs';
-import {
-  Surface,
-  Button,
-  Text,
-  Switch,
-  IconButton,
-  TouchableRipple,
-} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Button, Surface, Switch, Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
-import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 export default function ReminderDateInput() {
   const reminder = useSelector(state => state.reminder);

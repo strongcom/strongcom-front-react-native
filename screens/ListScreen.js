@@ -1,12 +1,6 @@
 import TaskList from '../components/listScreen/TaskList';
 import {AnimatedFAB} from 'react-native-paper';
-import {
-  RefreshControl,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../resources/style/theme';
 import {useCallback, useEffect, useState} from 'react';

@@ -1,12 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {usePostUsernameMutation} from '../api/SpringServer';
 import theme from '../resources/style/theme';
 import showToast from '../lib/showToast';
 import {getAsyncData, setAsyncData} from '../lib/AsyncManager';
 import {useDispatch} from 'react-redux';
-import {setImageInput} from '../modules/inputStateSlice';
 
 export default function RegisterScreen({navigation, route}) {
   const {refreshToken, accessTokenExpiresAt, refreshTokenExpiresAt} =

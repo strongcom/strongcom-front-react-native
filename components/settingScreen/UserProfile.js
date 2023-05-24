@@ -1,5 +1,4 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {Avatar} from '@react-native-material/core';
 import {useGetUserInfoQuery} from '../../api/SpringServer';
 
 export default function UserProfile() {

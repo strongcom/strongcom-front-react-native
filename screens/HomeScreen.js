@@ -1,11 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {
-  RefreshControl,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import theme from '../resources/style/theme';
 import TaskList from '../components/listScreen/TaskList';
 import {useGetReminderListQuery} from '../api/SpringServer';
