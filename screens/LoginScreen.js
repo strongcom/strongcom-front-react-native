@@ -1,5 +1,11 @@
-import {Button} from 'react-native-paper';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ImageBackground,
+} from 'react-native';
 import Toast from 'react-native-toast-message';
 import {useKakaoLoginMutation} from '../api/SpringServer';
 import theme from '../resources/style/theme';
@@ -9,6 +15,7 @@ import {getAsyncData, setAsyncData} from '../lib/AsyncManager';
 import {setImageInput} from '../modules/inputStateSlice';
 import {useDispatch} from 'react-redux';
 import SplashImage from '../resources/images/splash.png';
+import KakaoLoginButton from '../resources/images/kakao_login_button.png';
 
 export default function LoginScreen({navigation}) {
   const [kakaoLogin] = useKakaoLoginMutation();
@@ -68,12 +75,12 @@ export default function LoginScreen({navigation}) {
         <View style={styles.center}>
           <Text style={styles.titleText}>나가기 전에 생각했나요?</Text>
         </View>
-        <Button
+        <TouchableOpacity
           style={styles.button}
-          mode="outlined"
-          onPress={() => signInWithKakao()}>
-          카카오 로그인
-        </Button>
+          onPress={signInWithKakao}
+          resizeMode={'contain'}>
+          <Image source={KakaoLoginButton} style={styles.imageBackground} />
+        </TouchableOpacity>
       </View>
     </>
   );
@@ -98,13 +105,17 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 8,
   },
-  textInput: {
-    marginHorizontal: 16,
-    marginVertical: 8,
-  },
   button: {
-    marginHorizontal: 16,
-    marginVertical: 8,
+    width: 300,
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageBackground: {
+    height: '100%',
+    width: '100%',
+    resizeMode: 'contain',
+    justifyContent: 'center',
   },
   image: {
     height: '40%',
