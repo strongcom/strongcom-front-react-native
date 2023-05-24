@@ -7,7 +7,7 @@ export const settingList = [
 ];
 
 export const repetitionList = [
-  {key: 0, text: '반복 안함', value: ''},
+  {key: 0, text: '반복 안함', value: 'BASIC'},
   {key: 1, text: '매일', value: 'DAILY'},
   {
     key: 2,
@@ -16,9 +16,9 @@ export const repetitionList = [
     dayList: [
       {key: '2-1', text: '일', value: 'SUN'},
       {key: '2-2', text: '월', value: 'MON'},
-      {key: '2-3', text: '화', value: 'THU'},
+      {key: '2-3', text: '화', value: 'TUE'},
       {key: '2-4', text: '수', value: 'WED'},
-      {key: '2-5', text: '목', value: 'TUR'},
+      {key: '2-5', text: '목', value: 'THUR'},
       {key: '2-6', text: '금', value: 'FRI'},
       {key: '2-7', text: '토', value: 'SAT'},
     ],
