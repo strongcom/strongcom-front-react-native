@@ -1,22 +1,18 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {useGetUserInfoQuery} from '../../api/SpringServer';
+import {Avatar} from 'react-native-paper';
+import SplashImage from '../../resources/images/splash.png';
 
 export default function UserProfile() {
   const {data, error, isLoading} = useGetUserInfoQuery();
   return (
     <>
       <View style={styles.userAgent}>
-        {/*<Avatar*/}
-        {/*  size={100}*/}
-        {/*  image={{*/}
-        {/*    uri: 'https://blog.kakaocdn.net/dn/bAiTQP/btquRcLlEU9/soHQmOD9kzfvNT2v5WXSF1/img.jpg',*/}
-        {/*  }}*/}
-        {/*/>*/}
+        <Avatar.Image
+          size={100}
+          source={isLoading || error ? SplashImage : {uri: data?.image_url}}
+        />
         <Text style={styles.userName}>
-          ID: {isLoading ? '로딩중...' : error ? error.message : data.userName}
-        </Text>
-        <Text style={styles.userName}>
-          닉네임:{' '}
           {isLoading ? '로딩중...' : error ? error.message : data.nickName}
         </Text>
       </View>
