@@ -4,8 +4,10 @@ import {Divider, List} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 import {getAsyncData} from '../../lib/AsyncManager';
 import {useDispatch} from 'react-redux';
+import {useDeleteUserMutation} from '../../api/SpringServer';
 
 export default function SettingList({navigation}) {
+  const [deleteUser] = useDeleteUserMutation();
   const dispatch = useDispatch();
   const handleLogout = async () => {
     await AsyncStorage.removeItem('refresh_token').then(() => {
@@ -16,6 +18,13 @@ export default function SettingList({navigation}) {
 
   const handleImageAdd = () => {
     navigation.navigate('ImageAdd');
+  };
+
+  const handleUserDelete = async () => {
+    await AsyncStorage.removeItem('refresh_token').then(() => {
+      dispatch(getAsyncData('refresh_token'));
+    });
+    await deleteUser();
   };
 
   return (
@@ -32,6 +41,8 @@ export default function SettingList({navigation}) {
                 ? handleLogout
                 : item.key === 2
                 ? handleImageAdd
+                : item.key === 1
+                ? handleUserDelete
                 : null
             }
           />

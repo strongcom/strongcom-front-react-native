@@ -84,6 +84,14 @@ export const SpringServer = createApi({
         };
       },
     }),
+    deleteUser: builder.mutation({
+      query: () => {
+        return {
+          url: server.deleteUser,
+          method: 'DELETE',
+        };
+      },
+    }),
     login: builder.mutation({
       query: ({...body}) => {
         return {
@@ -109,6 +117,7 @@ export const {
   useDeleteReminderMutation,
   useGetUserInfoQuery,
   useRegisterUserMutation,
+  useDeleteUserMutation,
   useKakaoLoginMutation,
   usePostUsernameMutation,
 } = SpringServer;

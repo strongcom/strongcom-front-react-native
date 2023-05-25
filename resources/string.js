@@ -4,6 +4,10 @@ export const settingList = [
     key: 0,
     menuName: '로그아웃',
   },
+  {
+    key: 1,
+    menuName: '회원 탈퇴',
+  },
 ];
 
 export const repetitionList = [

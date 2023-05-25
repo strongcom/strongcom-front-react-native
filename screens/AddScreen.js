@@ -17,7 +17,6 @@ import {
 import theme from '../resources/style/theme';
 import React, {useEffect, useLayoutEffect} from 'react';
 import {initReminder, setReminder} from '../modules/reminderSlice';
-import dayjs from 'dayjs';
 import Loading from '../components/Loading';
 
 export default function AddScreen({navigation, route}) {
@@ -42,11 +41,14 @@ export default function AddScreen({navigation, route}) {
       dispatch(dateToggleInput(true));
       dispatch(timeToggleInput(true));
     }
+  }, [route.params?.id, data, dispatch, reminder.startDate, reminder.endDate]);
+
+  useEffect(() => {
     return () => {
       dispatch(initReminder());
       dispatch(initAddPageToggleState());
     };
-  }, [route.params?.id, data, dispatch, reminder.startDate, reminder.endDate]);
+  }, [dispatch]);
 
   const handleSubmit = async () => {
     console.log(reminder);

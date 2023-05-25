@@ -21,6 +21,7 @@ export const springServer = {
   deleteReminder: id => `reminder/${id}`,
   patchReminder: id => `reminder/${id}`,
   registerUser: 'user/add',
+  deleteUser: 'user',
   login: 'signin',
   kakao: 'kakao/add',
   postUsername: 'kakao/user',
