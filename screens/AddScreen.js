@@ -2,7 +2,7 @@ import ReminderTitleInput from '../components/addScreen/ReminderTitleInput';
 import ReminderDateInput from '../components/addScreen/ReminderDateInput';
 import ReminderTimeInput from '../components/addScreen/ReminderTimeInput';
 import {Button, Text} from 'react-native-paper';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 // import {postReminderAsync} from '../modules/reminderSlice';
 import {
@@ -15,9 +15,10 @@ import {
   usePostReminderMutation,
 } from '../api/SpringServer';
 import theme from '../resources/style/theme';
-import {useEffect, useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {initReminder, setReminder} from '../modules/reminderSlice';
 import dayjs from 'dayjs';
+import Loading from '../components/Loading';
 
 export default function AddScreen({navigation, route}) {
   const reminder = useSelector(state => state.reminder);
@@ -65,7 +66,7 @@ export default function AddScreen({navigation, route}) {
   };
 
   if (isLoading) {
-    return <Text>{'로딩중'}</Text>;
+    return <Loading />;
   }
 
   if (error) {

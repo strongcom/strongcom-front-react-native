@@ -1,9 +1,10 @@
-import {FlatList, RefreshControl, StyleSheet, View} from 'react-native';
+import {FlatList, RefreshControl, StyleSheet, View, Image} from 'react-native';
 import {Chip, Divider, List, Text, Surface} from 'react-native-paper';
 import theme from '../../resources/style/theme';
 import {useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {useDeleteReminderMutation} from '../../api/SpringServer';
+import Loading from '../Loading';
 
 export default function TaskList({
   title = '전체 리마인더',
@@ -19,8 +20,9 @@ export default function TaskList({
   const [deleteReminder] = useDeleteReminderMutation();
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loading />;
   }
+
   if (error) {
     return <Text>Error...</Text>;
   }
