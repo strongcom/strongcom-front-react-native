@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {timeToggleInput} from '../../modules/inputStateSlice';
 import {StyleSheet, View} from 'react-native';
@@ -13,6 +13,7 @@ export default function ReminderTimeInput() {
   const [startTimeOpen, setStartTimeOpen] = useState(false);
   const [endTimeOpen, setEndTimeOpen] = useState(false);
   const dispatch = useDispatch();
+
   const handleDateToggle = () => {
     dispatch(timeToggleInput(!timeToggle));
   };
@@ -67,7 +68,7 @@ export default function ReminderTimeInput() {
           <Button
             icon="clock-time-eight-outline"
             mode="text"
-            onPress={() => setStartTimeOpen(true)}>
+            onPress={() => setEndTimeOpen(true)}>
             {reminder.endTime}
           </Button>
         </View>
@@ -87,8 +88,8 @@ export default function ReminderTimeInput() {
         visible={endTimeOpen}
         onDismiss={onEndTimeDismiss}
         onConfirm={onEndTimeConfirm}
-        hours={reminder.endDate.slice(0, 2)}
-        minutes={reminder.endDate.slice(3, 5)}
+        hours={reminder.endTime.slice(0, 2)}
+        minutes={reminder.endTime.slice(3, 5)}
       />
     </Surface>
   );

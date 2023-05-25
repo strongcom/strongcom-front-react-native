@@ -1,5 +1,5 @@
 import {FlatList, RefreshControl, StyleSheet, View} from 'react-native';
-import {Chip, Divider, List, Text} from 'react-native-paper';
+import {Chip, Divider, List, Text, Surface} from 'react-native-paper';
 import theme from '../../resources/style/theme';
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
@@ -51,7 +51,7 @@ export default function TaskList({
   };
 
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
         {selectAllToggle ? (
@@ -103,7 +103,7 @@ export default function TaskList({
         )}
         keyExtractor={item => item.reminderId}
       />
-    </View>
+    </Surface>
   );
 }
 

@@ -1,13 +1,14 @@
 import ReminderTitleInput from '../components/addScreen/ReminderTitleInput';
 import ReminderDateInput from '../components/addScreen/ReminderDateInput';
 import ReminderTimeInput from '../components/addScreen/ReminderTimeInput';
-import {Button} from 'react-native-paper';
+import {Button, Text} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 // import {postReminderAsync} from '../modules/reminderSlice';
 import {
   dateToggleInput,
   initAddPageToggleState,
+  timeToggleInput,
 } from '../modules/inputStateSlice';
 import {
   useGetReminderByIdQuery,
@@ -20,7 +21,9 @@ import dayjs from 'dayjs';
 
 export default function AddScreen({navigation, route}) {
   const reminder = useSelector(state => state.reminder);
-  const {data, error, isLoading} = useGetReminderByIdQuery(route.params?.id);
+  const {data, error, isLoading} = useGetReminderByIdQuery(route.params?.id, {
+    skip: !route.params?.id,
+  });
   const [postReminder] = usePostReminderMutation();
   const dispatch = useDispatch();
 
@@ -30,25 +33,19 @@ export default function AddScreen({navigation, route}) {
         headerTitle: '리마인더 수정',
       });
     }
-  }, [navigation]);
+  }, [navigation, route.params?.id]);
 
   useEffect(() => {
-    if (route.params?.id && data && !isLoading && !error) {
+    if (route.params?.id && data) {
       dispatch(setReminder(JSON.stringify(data)));
-      if (
-        reminder.startDate === reminder.endDate &&
-        reminder.endDate === dayjs().format('YYYY-MM-DD')
-      ) {
-        dispatch(dateToggleInput(false));
-      } else {
-        dispatch(dateToggleInput(true));
-      }
+      dispatch(dateToggleInput(true));
+      dispatch(timeToggleInput(true));
     }
     return () => {
       dispatch(initReminder());
       dispatch(initAddPageToggleState());
     };
-  }, [route.params?.id, data]);
+  }, [route.params?.id, data, dispatch, reminder.startDate, reminder.endDate]);
 
   const handleSubmit = async () => {
     console.log(reminder);
@@ -66,6 +63,14 @@ export default function AddScreen({navigation, route}) {
   const handleCancel = () => {
     navigation.navigate('List');
   };
+
+  if (isLoading) {
+    return <Text>{'로딩중'}</Text>;
+  }
+
+  if (error) {
+    return <Text>{'에러 발생'}</Text>;
+  }
 
   return (
     <>

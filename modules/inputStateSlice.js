@@ -25,7 +25,6 @@ export const inputStateSlice = createSlice({
       state.selectModToggle = action.payload;
     },
     setImageInput: (state, action) => {
-      console.log('dispatch?????????');
       state.imageInput = action.payload;
     },
   },
